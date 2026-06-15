@@ -1,9 +1,10 @@
-const CACHE_NAME = "mdb-v1-0-4";
+const CACHE_NAME = "mdb-v1-0-5";
 const APP_FILES = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./data.json",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png"

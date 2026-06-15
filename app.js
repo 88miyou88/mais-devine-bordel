@@ -1,37 +1,19 @@
 (() => {
   "use strict";
 
-  const APP_VERSION = "0.1.3";
+  const APP_VERSION = "0.1.4";
   const SWIPE_ANIMATION_MS = 180;
+  const LIBRARY_URL = "./data.json";
   const STORAGE_KEYS = {
     boxes: "mdb-lyrics-boxes-v1",
     cards: "mdb-lyrics-cards-v1",
-    settings: "mdb-settings-v1"
+    settings: "mdb-settings-v1",
+    libraryMeta: "mdb-library-meta-v1"
   };
   const UNCATEGORIZED_ID = "uncategorized";
 
-  const DEFAULT_BOXES = [
-    { id: "disney", name: "Disney" },
-    { id: "comptines", name: "Comptines" },
-    { id: "variete-francaise", name: "Variété française" },
-    { id: "comedies-musicales", name: "Comédies musicales" },
-    { id: UNCATEGORIZED_ID, name: "Sans catégorie", protected: true }
-  ];
+  const FALLBACK_LIBRARY = {"schemaVersion":1,"libraryVersion":"2026.06.15-1","updatedAt":"2026-06-15","modeId":"lyrics","modeName":"Deviner les paroles","boxes":[{"id":"disney","name":"Disney"},{"id":"comptines","name":"Comptines"},{"id":"variete-francaise","name":"Variété française"},{"id":"comedies-musicales","name":"Comédies musicales"},{"id":"uncategorized","name":"Sans catégorie","protected":true}],"cards":[{"id":"lyrics-001","boxId":"disney","active":true,"prompt":"Libérée, délivrée","answer":"Je ne mentirai plus jamais","title":"Libérée, délivrée","source":"La Reine des Neiges"},{"id":"lyrics-002","boxId":"variete-francaise","active":true,"prompt":"Terres brûlées au vent","answer":"Des landes de pierre","title":"Les Lacs du Connemara","source":"Michel Sardou"},{"id":"lyrics-003","boxId":"comptines","active":true,"prompt":"Frère Jacques, Frère Jacques","answer":"Dormez-vous ? Dormez-vous ?","title":"Frère Jacques","source":"Comptine"},{"id":"lyrics-004","boxId":"variete-francaise","active":true,"prompt":"Je te donne toutes mes différences","answer":"Tous ces défauts qui sont autant de chances","title":"Je te donne","source":"Jean-Jacques Goldman & Michael Jones"},{"id":"lyrics-005","boxId":"disney","active":true,"prompt":"Ce rêve bleu","answer":"Je n’y crois pas, c’est merveilleux","title":"Ce rêve bleu","source":"Aladdin"},{"id":"lyrics-006","boxId":"variete-francaise","active":true,"prompt":"J’ai demandé à la lune","answer":"Et le soleil ne le sait pas","title":"J’ai demandé à la lune","source":"Indochine"},{"id":"lyrics-007","boxId":"comptines","active":true,"prompt":"Une souris verte","answer":"Qui courait dans l’herbe","title":"Une souris verte","source":"Comptine"},{"id":"lyrics-008","boxId":"variete-francaise","active":true,"prompt":"J’irai chercher ton cœur","answer":"Si tu l’emportes ailleurs","title":"Pour que tu m’aimes encore","source":"Céline Dion"},{"id":"lyrics-009","boxId":"disney","active":true,"prompt":"Hakuna Matata","answer":"Quelle phrase magnifique","title":"Hakuna Matata","source":"Le Roi Lion"},{"id":"lyrics-010","boxId":"comedies-musicales","active":true,"prompt":"Je voue mes nuits à l’assasymphonie","answer":"Aux requiems anatomiques","title":"L’Assasymphonie","source":"Mozart, l’Opéra Rock"},{"id":"lyrics-011","boxId":"comedies-musicales","active":true,"prompt":"Tatoue-moi sur ta peau","answer":"À l’encre de tes mots","title":"Tatoue-moi","source":"Mozart, l’Opéra Rock"},{"id":"lyrics-012","boxId":"variete-francaise","active":true,"prompt":"Aux Champs-Élysées, aux Champs-Élysées","answer":"Au soleil, sous la pluie","title":"Les Champs-Élysées","source":"Joe Dassin"}]};
 
-  const DEFAULT_CARDS = [
-    { id: "lyrics-001", boxId: "disney", active: true, prompt: "Libérée, délivrée", answer: "Je ne mentirai plus jamais", title: "Libérée, délivrée", source: "La Reine des Neiges" },
-    { id: "lyrics-002", boxId: "variete-francaise", active: true, prompt: "Terres brûlées au vent", answer: "Des landes de pierre", title: "Les Lacs du Connemara", source: "Michel Sardou" },
-    { id: "lyrics-003", boxId: "comptines", active: true, prompt: "Frère Jacques, Frère Jacques", answer: "Dormez-vous ? Dormez-vous ?", title: "Frère Jacques", source: "Comptine" },
-    { id: "lyrics-004", boxId: "variete-francaise", active: true, prompt: "Je te donne toutes mes différences", answer: "Tous ces défauts qui sont autant de chances", title: "Je te donne", source: "Jean-Jacques Goldman & Michael Jones" },
-    { id: "lyrics-005", boxId: "disney", active: true, prompt: "Ce rêve bleu", answer: "Je n’y crois pas, c’est merveilleux", title: "Ce rêve bleu", source: "Aladdin" },
-    { id: "lyrics-006", boxId: "variete-francaise", active: true, prompt: "J’ai demandé à la lune", answer: "Et le soleil ne le sait pas", title: "J’ai demandé à la lune", source: "Indochine" },
-    { id: "lyrics-007", boxId: "comptines", active: true, prompt: "Une souris verte", answer: "Qui courait dans l’herbe", title: "Une souris verte", source: "Comptine" },
-    { id: "lyrics-008", boxId: "variete-francaise", active: true, prompt: "J’irai chercher ton cœur", answer: "Si tu l’emportes ailleurs", title: "Pour que tu m’aimes encore", source: "Céline Dion" },
-    { id: "lyrics-009", boxId: "disney", active: true, prompt: "Hakuna Matata", answer: "Quelle phrase magnifique", title: "Hakuna Matata", source: "Le Roi Lion" },
-    { id: "lyrics-010", boxId: "comedies-musicales", active: true, prompt: "Je voue mes nuits à l’assasymphonie", answer: "Aux requiems anatomiques", title: "L’Assasymphonie", source: "Mozart, l’Opéra Rock" },
-    { id: "lyrics-011", boxId: "comedies-musicales", active: true, prompt: "Tatoue-moi sur ta peau", answer: "À l’encre de tes mots", title: "Tatoue-moi", source: "Mozart, l’Opéra Rock" },
-    { id: "lyrics-012", boxId: "variete-francaise", active: true, prompt: "Aux Champs-Élysées, aux Champs-Élysées", answer: "Au soleil, sous la pluie", title: "Les Champs-Élysées", source: "Joe Dassin" }
-  ];
 
   const el = {
     app: document.querySelector("#app"),
@@ -54,6 +36,17 @@
     vibrationToggle: document.querySelector("#vibrationToggle"),
     testValidVibrationButton: document.querySelector("#testValidVibrationButton"),
     testPassVibrationButton: document.querySelector("#testPassVibrationButton"),
+    advancedSettingsPanel: document.querySelector("#advancedSettingsPanel"),
+    installedLibraryVersion: document.querySelector("#installedLibraryVersion"),
+    availableLibraryVersion: document.querySelector("#availableLibraryVersion"),
+    libraryLastChecked: document.querySelector("#libraryLastChecked"),
+    libraryStatusMessage: document.querySelector("#libraryStatusMessage"),
+    checkLibraryButton: document.querySelector("#checkLibraryButton"),
+    updateLibraryButton: document.querySelector("#updateLibraryButton"),
+    exportBackupButton: document.querySelector("#exportBackupButton"),
+    restoreBackupButton: document.querySelector("#restoreBackupButton"),
+    restoreBackupInput: document.querySelector("#restoreBackupInput"),
+    resetLibraryButton: document.querySelector("#resetLibraryButton"),
     flipHomeButton: document.querySelector("#flipHomeButton"),
     diagnosticButton: document.querySelector("#diagnosticButton"),
 
@@ -137,6 +130,14 @@
     lastError: "Aucune",
     boxes: [],
     cards: [],
+    officialLibrary: null,
+    libraryMeta: {
+      installedVersion: "",
+      availableVersion: "",
+      lastCheckedAt: "",
+      deletedOfficialCardIds: [],
+      deletedOfficialBoxIds: []
+    },
     settings: {
       selectedBoxIds: [],
       vibrationEnabled: true
@@ -162,28 +163,209 @@
     return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
-  function loadContent() {
+  function normalizeLibrary(raw) {
+    if (!raw || !Array.isArray(raw.boxes) || !Array.isArray(raw.cards) || !raw.libraryVersion) {
+      throw new Error("Le fichier data.json n’a pas un format valide.");
+    }
+
+    return {
+      schemaVersion: Number(raw.schemaVersion) || 1,
+      libraryVersion: String(raw.libraryVersion),
+      updatedAt: String(raw.updatedAt || ""),
+      modeId: String(raw.modeId || "lyrics"),
+      modeName: String(raw.modeName || "Deviner les paroles"),
+      boxes: raw.boxes.map(box => ({
+        id: String(box.id),
+        name: String(box.name),
+        protected: box.id === UNCATEGORIZED_ID || box.protected === true
+      })),
+      cards: raw.cards.map(card => ({
+        id: String(card.id),
+        boxId: String(card.boxId || UNCATEGORIZED_ID),
+        active: card.active !== false,
+        prompt: String(card.prompt || ""),
+        answer: String(card.answer || ""),
+        title: String(card.title || ""),
+        source: String(card.source || "")
+      }))
+    };
+  }
+
+  async function fetchOfficialLibrary({ forceNetwork = false, allowFallback = true } = {}) {
+    const suffix = forceNetwork ? `?v=${Date.now()}` : "";
+    try {
+      const response = await fetch(`${LIBRARY_URL}${suffix}`, {
+        cache: forceNetwork ? "no-store" : "default"
+      });
+      if (!response.ok) throw new Error(`Bibliothèque indisponible (${response.status}).`);
+      const library = normalizeLibrary(await response.json());
+      state.officialLibrary = library;
+      return library;
+    } catch (error) {
+      recordError(error);
+      if (!allowFallback) throw error;
+      const fallback = normalizeLibrary(FALLBACK_LIBRARY);
+      state.officialLibrary = fallback;
+      return fallback;
+    }
+  }
+
+  function officialBoxFrom(box) {
+    return {
+      ...clone(box),
+      origin: "official",
+      locallyModified: false,
+      protected: box.id === UNCATEGORIZED_ID || box.protected === true
+    };
+  }
+
+  function officialCardFrom(card) {
+    return {
+      ...clone(card),
+      origin: "official",
+      locallyModified: false,
+      active: card.active !== false
+    };
+  }
+
+  function sameBoxAsOfficial(localBox, officialBox) {
+    return localBox.name === officialBox.name &&
+      Boolean(localBox.protected) === Boolean(officialBox.protected);
+  }
+
+  function sameCardAsOfficial(localCard, officialCard) {
+    return localCard.boxId === officialCard.boxId &&
+      localCard.prompt === officialCard.prompt &&
+      localCard.answer === officialCard.answer &&
+      localCard.title === officialCard.title &&
+      localCard.source === officialCard.source &&
+      Boolean(localCard.active) === Boolean(officialCard.active !== false);
+  }
+
+  function cleanIdList(value) {
+    return Array.isArray(value) ? [...new Set(value.map(String))] : [];
+  }
+
+  function migrateLegacyData(storedBoxes, storedCards, storedMeta, library) {
+    const officialBoxes = new Map(library.boxes.map(box => [box.id, box]));
+    const officialCards = new Map(library.cards.map(card => [card.id, card]));
+
+    state.boxes = storedBoxes.map(box => {
+      const official = officialBoxes.get(box.id);
+      if (!official) {
+        return {
+          ...box,
+          protected: box.id === UNCATEGORIZED_ID || box.protected === true,
+          origin: box.origin || "personal",
+          locallyModified: true
+        };
+      }
+      return {
+        ...box,
+        protected: box.id === UNCATEGORIZED_ID || box.protected === true,
+        origin: "official",
+        locallyModified: box.locallyModified === true || !sameBoxAsOfficial(box, official)
+      };
+    });
+
+    state.cards = storedCards.map(card => {
+      const official = officialCards.get(card.id);
+      if (!official) {
+        return {
+          ...card,
+          active: card.active !== false,
+          origin: card.origin || "personal",
+          locallyModified: true
+        };
+      }
+      return {
+        ...card,
+        active: card.active !== false,
+        origin: "official",
+        locallyModified: card.locallyModified === true || !sameCardAsOfficial(card, official)
+      };
+    });
+
+    const localBoxIds = new Set(state.boxes.map(box => box.id));
+    const localCardIds = new Set(state.cards.map(card => card.id));
+
+    state.libraryMeta = {
+      installedVersion: storedMeta?.installedVersion || library.libraryVersion,
+      availableVersion: library.libraryVersion,
+      lastCheckedAt: storedMeta?.lastCheckedAt || new Date().toISOString(),
+      deletedOfficialCardIds: cleanIdList(
+        storedMeta?.deletedOfficialCardIds ||
+        library.cards.filter(card => !localCardIds.has(card.id)).map(card => card.id)
+      ),
+      deletedOfficialBoxIds: cleanIdList(
+        storedMeta?.deletedOfficialBoxIds ||
+        library.boxes
+          .filter(box => box.id !== UNCATEGORIZED_ID && !localBoxIds.has(box.id))
+          .map(box => box.id)
+      )
+    };
+  }
+
+  function installFreshLibrary(library) {
+    state.boxes = library.boxes.map(officialBoxFrom);
+    state.cards = library.cards.map(officialCardFrom);
+    state.libraryMeta = {
+      installedVersion: library.libraryVersion,
+      availableVersion: library.libraryVersion,
+      lastCheckedAt: new Date().toISOString(),
+      deletedOfficialCardIds: [],
+      deletedOfficialBoxIds: []
+    };
+  }
+
+  function sanitizeLoadedContent(library) {
+    const officialBoxIds = new Set(library.boxes.map(box => box.id));
+    const officialCardIds = new Set(library.cards.map(card => card.id));
+
+    state.boxes = state.boxes.map(box => ({
+      ...box,
+      protected: box.id === UNCATEGORIZED_ID || box.protected === true,
+      origin: box.origin || (officialBoxIds.has(box.id) ? "official" : "personal"),
+      locallyModified: box.locallyModified === true
+    }));
+
+    if (!state.boxes.some(box => box.id === UNCATEGORIZED_ID)) {
+      const officialUncategorized = library.boxes.find(box => box.id === UNCATEGORIZED_ID) ||
+        { id: UNCATEGORIZED_ID, name: "Sans catégorie", protected: true };
+      state.boxes.push(officialBoxFrom(officialUncategorized));
+    }
+
+    const boxIds = new Set(state.boxes.map(box => box.id));
+    state.cards = state.cards.map(card => ({
+      ...card,
+      boxId: boxIds.has(card.boxId) ? card.boxId : UNCATEGORIZED_ID,
+      active: card.active !== false,
+      origin: card.origin || (officialCardIds.has(card.id) ? "official" : "personal"),
+      locallyModified: card.locallyModified === true
+    }));
+
+    state.libraryMeta = {
+      installedVersion: String(state.libraryMeta?.installedVersion || library.libraryVersion),
+      availableVersion: String(library.libraryVersion),
+      lastCheckedAt: String(state.libraryMeta?.lastCheckedAt || ""),
+      deletedOfficialCardIds: cleanIdList(state.libraryMeta?.deletedOfficialCardIds),
+      deletedOfficialBoxIds: cleanIdList(state.libraryMeta?.deletedOfficialBoxIds)
+    };
+  }
+
+  async function loadContent() {
+    const library = await fetchOfficialLibrary();
     const storedBoxes = safeParse(localStorage.getItem(STORAGE_KEYS.boxes), null);
     const storedCards = safeParse(localStorage.getItem(STORAGE_KEYS.cards), null);
     const storedSettings = safeParse(localStorage.getItem(STORAGE_KEYS.settings), null);
+    const storedMeta = safeParse(localStorage.getItem(STORAGE_KEYS.libraryMeta), null);
 
-    state.boxes = Array.isArray(storedBoxes) && storedBoxes.length
-      ? storedBoxes
-      : clone(DEFAULT_BOXES);
-
-    if (!state.boxes.some(box => box.id === UNCATEGORIZED_ID)) {
-      state.boxes.push({ id: UNCATEGORIZED_ID, name: "Sans catégorie", protected: true });
+    if (!Array.isArray(storedBoxes) || !storedBoxes.length || !Array.isArray(storedCards)) {
+      installFreshLibrary(library);
+    } else {
+      migrateLegacyData(storedBoxes, storedCards, storedMeta, library);
+      sanitizeLoadedContent(library);
     }
-
-    state.cards = Array.isArray(storedCards)
-      ? storedCards
-      : clone(DEFAULT_CARDS);
-
-    state.cards = state.cards.map(card => ({
-      ...card,
-      boxId: state.boxes.some(box => box.id === card.boxId) ? card.boxId : UNCATEGORIZED_ID,
-      active: card.active !== false
-    }));
 
     const allIds = state.boxes.map(box => box.id);
     const selected = storedSettings?.selectedBoxIds;
@@ -194,9 +376,7 @@
       vibrationEnabled: storedSettings?.vibrationEnabled !== false
     };
 
-    if (state.settings.selectedBoxIds.length === 0 && !storedSettings) {
-      state.settings.selectedBoxIds = [...allIds];
-    }
+    if (!storedSettings) state.settings.selectedBoxIds = [...allIds];
 
     state.flipped = localStorage.getItem("mdb-flipped") === "1";
     saveAllData();
@@ -206,7 +386,9 @@
     localStorage.setItem(STORAGE_KEYS.boxes, JSON.stringify(state.boxes));
     localStorage.setItem(STORAGE_KEYS.cards, JSON.stringify(state.cards));
     localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(state.settings));
+    localStorage.setItem(STORAGE_KEYS.libraryMeta, JSON.stringify(state.libraryMeta));
   }
+
 
   function showScreen(target) {
     el.screens.forEach(screen => screen.classList.toggle("active", screen === target));
@@ -227,10 +409,53 @@
 
   function renderHomeData() {
     renderBoxSelection();
+    renderAdvancedSettings();
     el.vibrationToggle.checked = state.settings.vibrationEnabled;
     const count = getPlayableCards().length;
     el.availableCount.textContent = `${count} carte${count > 1 ? "s" : ""} disponible${count > 1 ? "s" : ""}`;
     el.startButton.disabled = count === 0;
+  }
+
+  function formatCheckedDate(value) {
+    if (!value) return "Jamais";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Jamais";
+    return date.toLocaleString("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
+
+  function renderAdvancedSettings(message = "") {
+    const installed = state.libraryMeta.installedVersion || "Inconnue";
+    const available = state.libraryMeta.availableVersion ||
+      state.officialLibrary?.libraryVersion ||
+      "Inconnue";
+
+    el.installedLibraryVersion.textContent = installed;
+    el.availableLibraryVersion.textContent = available;
+    el.libraryLastChecked.textContent = formatCheckedDate(state.libraryMeta.lastCheckedAt);
+
+    const updateAvailable = Boolean(installed && available && installed !== available);
+    el.updateLibraryButton.disabled = !updateAvailable;
+
+    el.libraryStatusMessage.className = "library-status-message";
+    if (message) {
+      el.libraryStatusMessage.textContent = message;
+      return;
+    }
+
+    if (updateAvailable) {
+      el.libraryStatusMessage.classList.add("update-available");
+      el.libraryStatusMessage.textContent =
+        `Une nouvelle bibliothèque est disponible : ${available}. Tes modifications locales seront conservées.`;
+    } else {
+      el.libraryStatusMessage.classList.add("up-to-date");
+      el.libraryStatusMessage.textContent = "La bibliothèque officielle est à jour.";
+    }
   }
 
   function renderBoxSelection() {
@@ -441,9 +666,20 @@
     const id = el.cardIdInput.value;
     if (id) {
       const index = state.cards.findIndex(card => card.id === id);
-      if (index >= 0) state.cards[index] = { ...state.cards[index], ...data };
+      if (index >= 0) {
+        state.cards[index] = {
+          ...state.cards[index],
+          ...data,
+          locallyModified: true
+        };
+      }
     } else {
-      state.cards.unshift({ id: uniqueId("lyrics"), ...data });
+      state.cards.unshift({
+        id: uniqueId("lyrics"),
+        ...data,
+        origin: "personal",
+        locallyModified: true
+      });
     }
 
     saveAllData();
@@ -459,7 +695,9 @@
     state.cards.unshift({
       ...clone(card),
       id: uniqueId("lyrics"),
-      title: `${card.title} — copie`
+      title: `${card.title} — copie`,
+      origin: "personal",
+      locallyModified: true
     });
 
     saveAllData();
@@ -471,6 +709,7 @@
     const card = state.cards.find(item => item.id === cardId);
     if (!card) return;
     card.active = !card.active;
+    card.locallyModified = true;
     saveAllData();
     renderCardList();
     renderHomeData();
@@ -481,6 +720,10 @@
     if (!card) return;
 
     if (!confirm(`Supprimer définitivement « ${card.title} » ?`)) return;
+
+    if (card.origin === "official" && !state.libraryMeta.deletedOfficialCardIds.includes(card.id)) {
+      state.libraryMeta.deletedOfficialCardIds.push(card.id);
+    }
     state.cards = state.cards.filter(item => item.id !== cardId);
     saveAllData();
     renderCardList();
@@ -543,7 +786,12 @@
       return;
     }
 
-    const box = { id: uniqueId("box"), name };
+    const box = {
+      id: uniqueId("box"),
+      name,
+      origin: "personal",
+      locallyModified: true
+    };
     state.boxes.splice(Math.max(0, state.boxes.length - 1), 0, box);
     state.settings.selectedBoxIds.push(box.id);
     el.newBoxNameInput.value = "";
@@ -565,6 +813,7 @@
     }
 
     box.name = name;
+    box.locallyModified = true;
     saveAllData();
     renderBoxesList();
     renderHomeData();
@@ -582,8 +831,15 @@
     if (!confirm(message)) return;
 
     state.cards.forEach(card => {
-      if (card.boxId === boxId) card.boxId = UNCATEGORIZED_ID;
+      if (card.boxId === boxId) {
+        card.boxId = UNCATEGORIZED_ID;
+        card.locallyModified = true;
+      }
     });
+
+    if (box.origin === "official" && !state.libraryMeta.deletedOfficialBoxIds.includes(box.id)) {
+      state.libraryMeta.deletedOfficialBoxIds.push(box.id);
+    }
     state.boxes = state.boxes.filter(item => item.id !== boxId);
     state.settings.selectedBoxIds = state.settings.selectedBoxIds.filter(id => id !== boxId);
     if (!state.settings.selectedBoxIds.includes(UNCATEGORIZED_ID)) {
@@ -593,6 +849,243 @@
     saveAllData();
     renderBoxesList();
     renderHomeData();
+  }
+
+  async function checkLibraryUpdate() {
+    const originalText = el.checkLibraryButton.textContent;
+    el.checkLibraryButton.disabled = true;
+    el.checkLibraryButton.textContent = "Vérification…";
+    renderAdvancedSettings("Connexion à la bibliothèque GitHub…");
+
+    try {
+      const library = await fetchOfficialLibrary({ forceNetwork: true, allowFallback: false });
+      state.libraryMeta.availableVersion = library.libraryVersion;
+      state.libraryMeta.lastCheckedAt = new Date().toISOString();
+      saveAllData();
+      renderAdvancedSettings();
+    } catch (error) {
+      el.libraryStatusMessage.className = "library-status-message error";
+      el.libraryStatusMessage.textContent =
+        "Impossible de vérifier la bibliothèque. Contrôle la connexion Internet puis réessaie.";
+    } finally {
+      el.checkLibraryButton.disabled = false;
+      el.checkLibraryButton.textContent = originalText;
+    }
+  }
+
+  async function mergeOfficialLibrary() {
+    const originalText = el.updateLibraryButton.textContent;
+    el.updateLibraryButton.disabled = true;
+    el.updateLibraryButton.textContent = "Mise à jour…";
+
+    try {
+      const library = await fetchOfficialLibrary({ forceNetwork: true, allowFallback: false });
+      const deletedBoxIds = new Set(state.libraryMeta.deletedOfficialBoxIds);
+      const deletedCardIds = new Set(state.libraryMeta.deletedOfficialCardIds);
+      const localBoxes = new Map(state.boxes.map(box => [box.id, box]));
+      const localCards = new Map(state.cards.map(card => [card.id, card]));
+
+      const stats = {
+        boxesAdded: 0,
+        boxesUpdated: 0,
+        cardsAdded: 0,
+        cardsUpdated: 0,
+        localPreserved: 0,
+        deletedPreserved: 0
+      };
+
+      library.boxes.forEach(officialBox => {
+        if (deletedBoxIds.has(officialBox.id)) {
+          stats.deletedPreserved += 1;
+          return;
+        }
+
+        const existing = localBoxes.get(officialBox.id);
+        if (!existing) {
+          const created = officialBoxFrom(officialBox);
+          state.boxes.splice(Math.max(0, state.boxes.length - 1), 0, created);
+          localBoxes.set(created.id, created);
+          if (!state.settings.selectedBoxIds.includes(created.id)) {
+            state.settings.selectedBoxIds.push(created.id);
+          }
+          stats.boxesAdded += 1;
+        } else if (existing.origin === "official" && !existing.locallyModified) {
+          Object.assign(existing, officialBoxFrom(officialBox));
+          stats.boxesUpdated += 1;
+        } else {
+          stats.localPreserved += 1;
+        }
+      });
+
+      library.cards.forEach(officialCard => {
+        if (deletedCardIds.has(officialCard.id) || deletedBoxIds.has(officialCard.boxId)) {
+          stats.deletedPreserved += 1;
+          return;
+        }
+
+        const existing = localCards.get(officialCard.id);
+        if (!existing) {
+          const created = officialCardFrom(officialCard);
+          if (!state.boxes.some(box => box.id === created.boxId)) {
+            created.boxId = UNCATEGORIZED_ID;
+          }
+          state.cards.push(created);
+          localCards.set(created.id, created);
+          stats.cardsAdded += 1;
+        } else if (existing.origin === "official" && !existing.locallyModified) {
+          const replacement = officialCardFrom(officialCard);
+          if (!state.boxes.some(box => box.id === replacement.boxId)) {
+            replacement.boxId = UNCATEGORIZED_ID;
+          }
+          Object.assign(existing, replacement);
+          stats.cardsUpdated += 1;
+        } else {
+          stats.localPreserved += 1;
+        }
+      });
+
+      state.libraryMeta.installedVersion = library.libraryVersion;
+      state.libraryMeta.availableVersion = library.libraryVersion;
+      state.libraryMeta.lastCheckedAt = new Date().toISOString();
+
+      saveAllData();
+      renderHomeData();
+      renderCardList();
+
+      alert(
+        `Bibliothèque mise à jour.\n\n` +
+        `${stats.cardsAdded} nouvelle(s) carte(s)\n` +
+        `${stats.cardsUpdated} carte(s) officielle(s) actualisée(s)\n` +
+        `${stats.boxesAdded} nouvelle(s) boîte(s)\n` +
+        `${stats.localPreserved} modification(s) locale(s) conservée(s)`
+      );
+    } catch (error) {
+      el.libraryStatusMessage.className = "library-status-message error";
+      el.libraryStatusMessage.textContent =
+        "La mise à jour a échoué. Aucune donnée locale n’a été supprimée.";
+    } finally {
+      el.updateLibraryButton.textContent = originalText;
+      renderAdvancedSettings();
+    }
+  }
+
+  function exportBackup() {
+    const backup = {
+      backupSchemaVersion: 1,
+      appVersion: APP_VERSION,
+      exportedAt: new Date().toISOString(),
+      boxes: state.boxes,
+      cards: state.cards,
+      settings: state.settings,
+      libraryMeta: state.libraryMeta
+    };
+
+    const blob = new Blob(
+      [JSON.stringify(backup, null, 2)],
+      { type: "application/json;charset=utf-8" }
+    );
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const date = new Date().toISOString().slice(0, 10);
+    link.href = url;
+    link.download = `mdb-sauvegarde-${date}.json`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function validateBackup(data) {
+    return data &&
+      Number(data.backupSchemaVersion) === 1 &&
+      Array.isArray(data.boxes) &&
+      Array.isArray(data.cards) &&
+      data.settings &&
+      data.libraryMeta;
+  }
+
+  async function restoreBackupFile(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    try {
+      const data = JSON.parse(await file.text());
+      if (!validateBackup(data)) {
+        throw new Error("Ce fichier n’est pas une sauvegarde MDB valide.");
+      }
+
+      if (!confirm(
+        `Restaurer cette sauvegarde du ${formatCheckedDate(data.exportedAt)} ?\n\n` +
+        "Les cartes et réglages actuellement présents sur ce téléphone seront remplacés."
+      )) return;
+
+      state.boxes = clone(data.boxes);
+      state.cards = clone(data.cards);
+      state.settings = clone(data.settings);
+      state.libraryMeta = clone(data.libraryMeta);
+      sanitizeLoadedContent(state.officialLibrary || normalizeLibrary(FALLBACK_LIBRARY));
+      saveAllData();
+      renderHomeData();
+      renderCardList();
+      alert("Sauvegarde restaurée.");
+    } catch (error) {
+      recordError(error);
+      alert(error.message || "Impossible de restaurer cette sauvegarde.");
+    }
+  }
+
+  async function resetOfficialLibrary() {
+    if (!confirm(
+      "Réinitialiser la bibliothèque officielle ?\n\n" +
+      "Les cartes officielles retrouveront leur version GitHub. " +
+      "Tes cartes et boîtes personnelles seront conservées."
+    )) return;
+
+    try {
+      const library = await fetchOfficialLibrary({ forceNetwork: true, allowFallback: false });
+      const personalBoxes = state.boxes.filter(box => box.origin === "personal");
+      const personalCards = state.cards.filter(card => card.origin === "personal");
+      const officialBoxes = library.boxes.map(officialBoxFrom);
+
+      const boxIds = new Set([...officialBoxes, ...personalBoxes].map(box => box.id));
+      personalCards.forEach(card => {
+        if (!boxIds.has(card.boxId)) card.boxId = UNCATEGORIZED_ID;
+      });
+
+      state.boxes = [...officialBoxes.filter(box => box.id !== UNCATEGORIZED_ID), ...personalBoxes];
+      const uncategorized = officialBoxes.find(box => box.id === UNCATEGORIZED_ID);
+      if (uncategorized) state.boxes.push(uncategorized);
+
+      state.cards = [
+        ...library.cards.map(officialCardFrom),
+        ...personalCards
+      ];
+
+      state.libraryMeta = {
+        installedVersion: library.libraryVersion,
+        availableVersion: library.libraryVersion,
+        lastCheckedAt: new Date().toISOString(),
+        deletedOfficialCardIds: [],
+        deletedOfficialBoxIds: []
+      };
+
+      const validIds = new Set(state.boxes.map(box => box.id));
+      state.settings.selectedBoxIds = state.settings.selectedBoxIds.filter(id => validIds.has(id));
+      library.boxes.forEach(box => {
+        if (!state.settings.selectedBoxIds.includes(box.id)) {
+          state.settings.selectedBoxIds.push(box.id);
+        }
+      });
+
+      saveAllData();
+      renderHomeData();
+      renderCardList();
+      alert("Bibliothèque officielle réinitialisée. Les contenus personnels ont été conservés.");
+    } catch (error) {
+      recordError(error);
+      alert("La réinitialisation a échoué. Aucune donnée n’a été modifiée.");
+    }
   }
 
   function shuffle(items) {
@@ -689,7 +1182,7 @@
       if (result === "valid") {
         navigator.vibrate([45, 45, 45, 45, 45]);
       } else {
-        navigator.vibrate(650);
+        navigator.vibrate(425);
       }
     } catch (error) {
       recordError(error);
@@ -1086,7 +1579,11 @@
       `Plein écran : ${document.fullscreenEnabled ? "Pris en charge" : "Non pris en charge"}`,
       `IndexedDB : ${"indexedDB" in window ? "Pris en charge" : "Non pris en charge"}`,
       `Cartes enregistrées : ${state.cards.length}`,
+      `Cartes officielles : ${state.cards.filter(card => card.origin === "official").length}`,
+      `Cartes personnelles : ${state.cards.filter(card => card.origin === "personal").length}`,
       `Boîtes enregistrées : ${state.boxes.length}`,
+      `Bibliothèque installée : ${state.libraryMeta.installedVersion || "Inconnue"}`,
+      `Bibliothèque disponible : ${state.libraryMeta.availableVersion || "Inconnue"}`,
       `Cartes jouables : ${getPlayableCards().length}`,
       `Seuil du swipe : ${Math.round(getSwipeThreshold())} px`,
       `Affichage retourné : ${state.flipped ? "Oui" : "Non"}`,
@@ -1155,6 +1652,13 @@
     });
     el.testValidVibrationButton.addEventListener("click", () => vibrateForResult("valid", true));
     el.testPassVibrationButton.addEventListener("click", () => vibrateForResult("pass", true));
+
+    el.checkLibraryButton.addEventListener("click", checkLibraryUpdate);
+    el.updateLibraryButton.addEventListener("click", mergeOfficialLibrary);
+    el.exportBackupButton.addEventListener("click", exportBackup);
+    el.restoreBackupButton.addEventListener("click", () => el.restoreBackupInput.click());
+    el.restoreBackupInput.addEventListener("change", restoreBackupFile);
+    el.resetLibraryButton.addEventListener("click", resetOfficialLibrary);
 
     el.cardSearchInput.addEventListener("input", renderCardList);
     el.manageBoxFilter.addEventListener("change", renderCardList);
@@ -1235,8 +1739,8 @@
     });
   }
 
-  function init() {
-    loadContent();
+  async function init() {
+    await loadContent();
     setFlipped(state.flipped);
     bindEvents();
     renderHomeData();
@@ -1245,5 +1749,8 @@
     registerServiceWorker();
   }
 
-  init();
+  init().catch(error => {
+    recordError(error);
+    alert("L’application n’a pas pu charger ses données. Recharge la page ou ouvre le diagnostic.");
+  });
 })();

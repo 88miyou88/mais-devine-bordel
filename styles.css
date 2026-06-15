@@ -287,6 +287,16 @@ h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
   border: 1px solid var(--outline);
 }
 
+.danger-button {
+  min-height: 52px;
+  border-radius: 15px;
+  padding: 11px 17px;
+  font-weight: 900;
+  color: #ffd6d9;
+  background: rgba(255, 91, 103, .12);
+  border: 1px solid rgba(255, 91, 103, .48);
+}
+
 .compact-button {
   min-height: 42px;
   padding: 8px 12px;
@@ -363,6 +373,108 @@ h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
   text-decoration: underline;
   padding: 9px;
 }
+
+
+.advanced-settings {
+  margin-top: 13px;
+  border: 1px solid rgba(185,129,255,.28);
+  border-radius: 13px;
+  overflow: hidden;
+  background: rgba(185,129,255,.035);
+}
+
+.advanced-settings > summary {
+  cursor: pointer;
+  padding: 11px 12px;
+  color: #d8b9ff;
+  font-weight: 900;
+}
+
+.advanced-settings-content {
+  padding: 12px;
+  border-top: 1px solid rgba(185,129,255,.2);
+}
+
+.advanced-explanation,
+.advanced-warning {
+  margin: 0 0 11px;
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.4;
+}
+
+.advanced-explanation code {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+.advanced-warning {
+  margin: 11px 0 0;
+  color: #ffb7bd;
+}
+
+.library-version-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px 12px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  background: rgba(0,0,0,.16);
+}
+
+.library-version-grid span {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.library-version-grid strong {
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  font-size: .83rem;
+}
+
+.library-status-message {
+  margin: 10px 0;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.045);
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.35;
+}
+
+.library-status-message.up-to-date {
+  color: var(--green);
+  background: rgba(72,224,125,.07);
+}
+
+.library-status-message.update-available {
+  color: #e4c7ff;
+  background: rgba(185,129,255,.09);
+}
+
+.library-status-message.error {
+  color: var(--red);
+  background: rgba(255,91,103,.08);
+}
+
+.advanced-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.advanced-actions button {
+  min-width: 0;
+}
+
 
 /* Gestion des cartes */
 
@@ -1197,5 +1309,21 @@ h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
 
   .manage-toolbar .search-input {
     grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .advanced-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .library-version-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .library-version-grid strong {
+    max-width: 100%;
+    text-align: left;
+    margin-bottom: 4px;
   }
 }

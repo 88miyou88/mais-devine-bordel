@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "libraryVersion": "2026.06.15-1",
+  "updatedAt": "2026-06-15",
+  "modeId": "lyrics",
+  "modeName": "Deviner les paroles",
+  "boxes": [
+    {
+      "id": "disney",
+      "name": "Disney"
+    },
+    {
+      "id": "comptines",
+      "name": "Comptines"
+    },
+    {
+      "id": "variete-francaise",
+      "name": "Variété française"
+    },
+    {
+      "id": "comedies-musicales",
+      "name": "Comédies musicales"
+    },
+    {
+      "id": "uncategorized",
+      "name": "Sans catégorie",
+      "protected": true
+    }
+  ],
+  "cards": [
+    {
+      "id": "lyrics-001",
+      "boxId": "disney",
+      "active": true,
+      "prompt": "Libérée, délivrée",
+      "answer": "Je ne mentirai plus jamais",
+      "title": "Libérée, délivrée",
+      "source": "La Reine des Neiges"
+    },
+    {
+      "id": "lyrics-002",
+      "boxId": "variete-francaise",
+      "active": true,
+      "prompt": "Terres brûlées au vent",
+      "answer": "Des landes de pierre",
+      "title": "Les Lacs du Connemara",
+      "source": "Michel Sardou"
+    },
+    {
+      "id": "lyrics-003",
+      "boxId": "comptines",
+      "active": true,
+      "prompt": "Frère Jacques, Frère Jacques",
+      "answer": "Dormez-vous ? Dormez-vous ?",
+      "title": "Frère Jacques",
+      "source": "Comptine"
+    },
+    {
+      "id": "lyrics-004",
+      "boxId": "variete-francaise",
+      "active": true,
+      "prompt": "Je te donne toutes mes différences",
+      "answer": "Tous ces défauts qui sont autant de chances",
+      "title": "Je te donne",
+      "source": "Jean-Jacques Goldman & Michael Jones"
+    },
+    {
+      "id": "lyrics-005",
+      "boxId": "disney",
+      "active": true,
+      "prompt": "Ce rêve bleu",
+      "answer": "Je n’y crois pas, c’est merveilleux",
+      "title": "Ce rêve bleu",
+      "source": "Aladdin"
+    },
+    {
+      "id": "lyrics-006",
+      "boxId": "variete-francaise",
+      "active": true,
+      "prompt": "J’ai demandé à la lune",
+      "answer": "Et le soleil ne le sait pas",
+      "title": "J’ai demandé à la lune",
+      "source": "Indochine"
+    },
+    {
+      "id": "lyrics-007",
+      "boxId": "comptines",
+      "active": true,
+      "prompt": "Une souris verte",
+      "answer": "Qui courait dans l’herbe",
+      "title": "Une souris verte",
+      "source": "Comptine"
+    },
+    {
+      "id": "lyrics-008",
+      "boxId": "variete-francaise",
+      "active": true,
+      "prompt": "J’irai chercher ton cœur",
+      "answer": "Si tu l’emportes ailleurs",
+      "title": "Pour que tu m’aimes encore",
+      "source": "Céline Dion"
+    },
+    {
+      "id": "lyrics-009",
+      "boxId": "disney",
+      "active": true,
+      "prompt": "Hakuna Matata",
+      "answer": "Quelle phrase magnifique",
+      "title": "Hakuna Matata",
+      "source": "Le Roi Lion"
+    },
+    {
+      "id": "lyrics-010",
+      "boxId": "comedies-musicales",
+      "active": true,
+      "prompt": "Je voue mes nuits à l’assasymphonie",
+      "answer": "Aux requiems anatomiques",
+      "title": "L’Assasymphonie",
+      "source": "Mozart, l’Opéra Rock"
+    },
+    {
+      "id": "lyrics-011",
+      "boxId": "comedies-musicales",
+      "active": true,
+      "prompt": "Tatoue-moi sur ta peau",
+      "answer": "À l’encre de tes mots",
+      "title": "Tatoue-moi",
+      "source": "Mozart, l’Opéra Rock"
+    },
+    {
+      "id": "lyrics-012",
+      "boxId": "variete-francaise",
+      "active": true,
+      "prompt": "Aux Champs-Élysées, aux Champs-Élysées",
+      "answer": "Au soleil, sous la pluie",
+      "title": "Les Champs-Élysées",
+      "source": "Joe Dassin"
+    }
+  ]
+}
