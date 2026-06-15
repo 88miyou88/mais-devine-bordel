@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <meta name="theme-color" content="#111318">
-  <meta name="description" content="Prototype V1 de Mais devine, bordel !">
+  <meta name="description" content="Mais devine, bordel ! — jeu de cartes personnalisable à poser sur le front.">
   <title>Mais devine, bordel !</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
@@ -15,7 +15,7 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Prototype V1 — Deviner les paroles</p>
+        <p class="eyebrow">Version test 0.1.3 — Deviner les paroles</p>
         <h1 id="appTitle">Mais devine, bordel !</h1>
         <p class="intro">Pose le téléphone à l’horizontale sur ton front. Les autres lisent la carte et chantent.</p>
 
@@ -35,10 +35,40 @@
           </label>
         </fieldset>
 
+        <fieldset class="box-selection-panel">
+          <legend>Boîtes utilisées</legend>
+          <div class="selection-topline">
+            <strong id="availableCount">0 carte disponible</strong>
+            <div>
+              <button id="selectAllBoxesButton" class="mini-button" type="button">Tout</button>
+              <button id="selectNoBoxesButton" class="mini-button" type="button">Aucune</button>
+            </div>
+          </div>
+          <div id="boxSelectionList" class="box-selection-list"></div>
+        </fieldset>
+
         <div class="home-actions">
           <button id="startButton" class="primary-button" type="button">Lancer la partie</button>
+          <button id="manageCardsButton" class="secondary-button" type="button">Gérer les cartes et les boîtes</button>
           <button id="installButton" class="secondary-button hidden" type="button">Installer l’application</button>
         </div>
+
+        <details class="settings-panel">
+          <summary>Réglages</summary>
+          <div class="settings-content">
+            <label class="toggle-row">
+              <span>
+                <strong>Vibrations</strong>
+                <small>Petites impulsions = validé · longue vibration = passé</small>
+              </span>
+              <input id="vibrationToggle" type="checkbox" checked>
+            </label>
+            <div class="test-vibrations">
+              <button id="testValidVibrationButton" class="mini-button valid-test" type="button">Tester « validé »</button>
+              <button id="testPassVibrationButton" class="mini-button pass-test" type="button">Tester « passé »</button>
+            </div>
+          </div>
+        </details>
 
         <div class="quick-rules">
           <span><b>→</b> Validé</span>
@@ -50,6 +80,28 @@
           <button id="flipHomeButton" class="text-button" type="button">Retourner l’affichage à 180°</button>
           <button id="diagnosticButton" class="text-button" type="button">Diagnostic</button>
         </div>
+      </div>
+    </section>
+
+    <section id="manageScreen" class="screen">
+      <div class="manage-card">
+        <header class="manage-header">
+          <button id="manageBackButton" class="secondary-button compact-button" type="button">← Accueil</button>
+          <div>
+            <p class="eyebrow">Contenu du jeu</p>
+            <h2>Gérer les cartes</h2>
+          </div>
+        </header>
+
+        <div class="manage-toolbar">
+          <input id="cardSearchInput" class="search-input" type="search" placeholder="Rechercher une chanson, un artiste…">
+          <select id="manageBoxFilter" class="select-input" aria-label="Filtrer par boîte"></select>
+          <button id="addCardButton" class="primary-button compact-button" type="button">+ Ajouter une carte</button>
+          <button id="manageBoxesButton" class="secondary-button compact-button" type="button">Gérer les boîtes</button>
+        </div>
+
+        <p id="manageStats" class="manage-stats"></p>
+        <div id="cardList" class="card-list"></div>
       </div>
     </section>
 
@@ -75,7 +127,15 @@
 
       <div id="swipeStage" class="swipe-stage">
         <article id="gameCard" class="game-card" aria-live="polite">
-          <div id="swipeBadge" class="swipe-badge"></div>
+          <div id="leftSwipeGuide" class="swipe-guide swipe-guide-left guide-pass" data-result="pass" aria-hidden="true">
+            <span class="guide-arrow">&lt;</span>
+            <span class="guide-word">PASSÉE</span>
+          </div>
+          <div id="rightSwipeGuide" class="swipe-guide swipe-guide-right guide-valid" data-result="valid" aria-hidden="true">
+            <span class="guide-word">VALIDÉE</span>
+            <span class="guide-arrow">&gt;</span>
+          </div>
+
           <p class="mode-label">DEVINER LES PAROLES</p>
           <p id="promptText" class="prompt-text"></p>
           <div class="separator">…</div>
@@ -117,6 +177,64 @@
       </div>
     </section>
   </main>
+
+  <dialog id="cardDialog" class="editor-dialog">
+    <form id="cardForm">
+      <div class="dialog-header">
+        <h2 id="cardDialogTitle">Ajouter une carte</h2>
+        <button id="closeCardDialogButton" class="close-button" type="button" aria-label="Fermer">×</button>
+      </div>
+      <input id="cardIdInput" type="hidden">
+      <label>
+        Paroles à chanter
+        <textarea id="cardPromptInput" required rows="2" placeholder="Libérée, délivrée"></textarea>
+      </label>
+      <label>
+        Paroles à retrouver
+        <textarea id="cardAnswerInput" required rows="2" placeholder="Je ne mentirai plus jamais"></textarea>
+      </label>
+      <div class="form-grid">
+        <label>
+          Titre
+          <input id="cardTitleInput" required type="text" placeholder="Libérée, délivrée">
+        </label>
+        <label>
+          Artiste / film / source
+          <input id="cardSourceInput" required type="text" placeholder="La Reine des Neiges">
+        </label>
+      </div>
+      <label>
+        Boîte
+        <select id="cardBoxInput" required></select>
+      </label>
+      <label class="checkbox-row">
+        <input id="cardActiveInput" type="checkbox" checked>
+        Carte active dans le jeu
+      </label>
+      <div class="dialog-actions">
+        <button class="secondary-button" id="cancelCardButton" type="button">Annuler</button>
+        <button class="primary-button" type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="boxesDialog" class="editor-dialog">
+    <form>
+      <div class="dialog-header">
+        <h2>Gérer les boîtes</h2>
+        <button id="closeBoxesDialogButton" class="close-button" type="button" aria-label="Fermer">×</button>
+      </div>
+      <div class="add-box-row">
+        <input id="newBoxNameInput" type="text" placeholder="Nom de la nouvelle boîte">
+        <button id="addBoxButton" class="primary-button compact-button" type="button">Ajouter</button>
+      </div>
+      <div id="boxesList" class="boxes-list"></div>
+      <p class="dialog-note">Si tu supprimes une boîte, ses cartes seront déplacées dans « Sans catégorie ».</p>
+      <div class="dialog-actions one-column">
+        <button id="doneBoxesButton" class="secondary-button" type="button">Terminer</button>
+      </div>
+    </form>
+  </dialog>
 
   <dialog id="diagnosticDialog" class="diagnostic-dialog">
     <form method="dialog">

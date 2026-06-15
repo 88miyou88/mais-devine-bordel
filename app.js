@@ -1,44 +1,77 @@
 (() => {
   "use strict";
 
-  const APP_VERSION = "0.1.2";
+  const APP_VERSION = "0.1.3";
   const SWIPE_ANIMATION_MS = 180;
+  const STORAGE_KEYS = {
+    boxes: "mdb-lyrics-boxes-v1",
+    cards: "mdb-lyrics-cards-v1",
+    settings: "mdb-settings-v1"
+  };
+  const UNCATEGORIZED_ID = "uncategorized";
 
-  const DEMO_CARDS = [
-    { id: "lyrics-001", prompt: "Libérée, délivrée", answer: "Je ne mentirai plus jamais", title: "Libérée, délivrée", source: "La Reine des Neiges" },
-    { id: "lyrics-002", prompt: "Terres brûlées au vent", answer: "Des landes de pierre", title: "Les Lacs du Connemara", source: "Michel Sardou" },
-    { id: "lyrics-003", prompt: "Frère Jacques, Frère Jacques", answer: "Dormez-vous ? Dormez-vous ?", title: "Frère Jacques", source: "Comptine" },
-    { id: "lyrics-004", prompt: "Je te donne toutes mes différences", answer: "Tous ces défauts qui sont autant de chances", title: "Je te donne", source: "Jean-Jacques Goldman & Michael Jones" },
-    { id: "lyrics-005", prompt: "Ce rêve bleu", answer: "Je n’y crois pas, c’est merveilleux", title: "Ce rêve bleu", source: "Aladdin" },
-    { id: "lyrics-006", prompt: "J’ai demandé à la lune", answer: "Et le soleil ne le sait pas", title: "J’ai demandé à la lune", source: "Indochine" },
-    { id: "lyrics-007", prompt: "Une souris verte", answer: "Qui courait dans l’herbe", title: "Une souris verte", source: "Comptine" },
-    { id: "lyrics-008", prompt: "J’irai chercher ton cœur", answer: "Si tu l’emportes ailleurs", title: "Pour que tu m’aimes encore", source: "Céline Dion" },
-    { id: "lyrics-009", prompt: "Hakuna Matata", answer: "Quelle phrase magnifique", title: "Hakuna Matata", source: "Le Roi Lion" },
-    { id: "lyrics-010", prompt: "Je voue mes nuits à l’assasymphonie", answer: "Aux requiems anatomiques", title: "L’Assasymphonie", source: "Mozart, l’Opéra Rock" },
-    { id: "lyrics-011", prompt: "Tatoue-moi sur ta peau", answer: "À l’encre de tes mots", title: "Tatoue-moi", source: "Mozart, l’Opéra Rock" },
-    { id: "lyrics-012", prompt: "Aux Champs-Élysées, aux Champs-Élysées", answer: "Au soleil, sous la pluie", title: "Les Champs-Élysées", source: "Joe Dassin" }
+  const DEFAULT_BOXES = [
+    { id: "disney", name: "Disney" },
+    { id: "comptines", name: "Comptines" },
+    { id: "variete-francaise", name: "Variété française" },
+    { id: "comedies-musicales", name: "Comédies musicales" },
+    { id: UNCATEGORIZED_ID, name: "Sans catégorie", protected: true }
+  ];
+
+  const DEFAULT_CARDS = [
+    { id: "lyrics-001", boxId: "disney", active: true, prompt: "Libérée, délivrée", answer: "Je ne mentirai plus jamais", title: "Libérée, délivrée", source: "La Reine des Neiges" },
+    { id: "lyrics-002", boxId: "variete-francaise", active: true, prompt: "Terres brûlées au vent", answer: "Des landes de pierre", title: "Les Lacs du Connemara", source: "Michel Sardou" },
+    { id: "lyrics-003", boxId: "comptines", active: true, prompt: "Frère Jacques, Frère Jacques", answer: "Dormez-vous ? Dormez-vous ?", title: "Frère Jacques", source: "Comptine" },
+    { id: "lyrics-004", boxId: "variete-francaise", active: true, prompt: "Je te donne toutes mes différences", answer: "Tous ces défauts qui sont autant de chances", title: "Je te donne", source: "Jean-Jacques Goldman & Michael Jones" },
+    { id: "lyrics-005", boxId: "disney", active: true, prompt: "Ce rêve bleu", answer: "Je n’y crois pas, c’est merveilleux", title: "Ce rêve bleu", source: "Aladdin" },
+    { id: "lyrics-006", boxId: "variete-francaise", active: true, prompt: "J’ai demandé à la lune", answer: "Et le soleil ne le sait pas", title: "J’ai demandé à la lune", source: "Indochine" },
+    { id: "lyrics-007", boxId: "comptines", active: true, prompt: "Une souris verte", answer: "Qui courait dans l’herbe", title: "Une souris verte", source: "Comptine" },
+    { id: "lyrics-008", boxId: "variete-francaise", active: true, prompt: "J’irai chercher ton cœur", answer: "Si tu l’emportes ailleurs", title: "Pour que tu m’aimes encore", source: "Céline Dion" },
+    { id: "lyrics-009", boxId: "disney", active: true, prompt: "Hakuna Matata", answer: "Quelle phrase magnifique", title: "Hakuna Matata", source: "Le Roi Lion" },
+    { id: "lyrics-010", boxId: "comedies-musicales", active: true, prompt: "Je voue mes nuits à l’assasymphonie", answer: "Aux requiems anatomiques", title: "L’Assasymphonie", source: "Mozart, l’Opéra Rock" },
+    { id: "lyrics-011", boxId: "comedies-musicales", active: true, prompt: "Tatoue-moi sur ta peau", answer: "À l’encre de tes mots", title: "Tatoue-moi", source: "Mozart, l’Opéra Rock" },
+    { id: "lyrics-012", boxId: "variete-francaise", active: true, prompt: "Aux Champs-Élysées, aux Champs-Élysées", answer: "Au soleil, sous la pluie", title: "Les Champs-Élysées", source: "Joe Dassin" }
   ];
 
   const el = {
     app: document.querySelector("#app"),
     screens: [...document.querySelectorAll(".screen")],
     homeScreen: document.querySelector("#homeScreen"),
+    manageScreen: document.querySelector("#manageScreen"),
     countdownScreen: document.querySelector("#countdownScreen"),
     gameScreen: document.querySelector("#gameScreen"),
     resultsScreen: document.querySelector("#resultsScreen"),
+
     startButton: document.querySelector("#startButton"),
+    manageCardsButton: document.querySelector("#manageCardsButton"),
     installButton: document.querySelector("#installButton"),
     durationButtons: [...document.querySelectorAll(".duration-btn")],
     customSeconds: document.querySelector("#customSeconds"),
+    boxSelectionList: document.querySelector("#boxSelectionList"),
+    availableCount: document.querySelector("#availableCount"),
+    selectAllBoxesButton: document.querySelector("#selectAllBoxesButton"),
+    selectNoBoxesButton: document.querySelector("#selectNoBoxesButton"),
+    vibrationToggle: document.querySelector("#vibrationToggle"),
+    testValidVibrationButton: document.querySelector("#testValidVibrationButton"),
+    testPassVibrationButton: document.querySelector("#testPassVibrationButton"),
     flipHomeButton: document.querySelector("#flipHomeButton"),
     diagnosticButton: document.querySelector("#diagnosticButton"),
+
+    manageBackButton: document.querySelector("#manageBackButton"),
+    cardSearchInput: document.querySelector("#cardSearchInput"),
+    manageBoxFilter: document.querySelector("#manageBoxFilter"),
+    addCardButton: document.querySelector("#addCardButton"),
+    manageBoxesButton: document.querySelector("#manageBoxesButton"),
+    manageStats: document.querySelector("#manageStats"),
+    cardList: document.querySelector("#cardList"),
+
     countdownValue: document.querySelector("#countdownValue"),
     timeDisplay: document.querySelector("#timeDisplay"),
     validScore: document.querySelector("#validScore"),
     passScore: document.querySelector("#passScore"),
-    swipeStage: document.querySelector("#swipeStage"),
     gameCard: document.querySelector("#gameCard"),
-    swipeBadge: document.querySelector("#swipeBadge"),
+    leftSwipeGuide: document.querySelector("#leftSwipeGuide"),
+    rightSwipeGuide: document.querySelector("#rightSwipeGuide"),
     promptText: document.querySelector("#promptText"),
     answerText: document.querySelector("#answerText"),
     songTitle: document.querySelector("#songTitle"),
@@ -50,12 +83,34 @@
     endButton: document.querySelector("#endButton"),
     pauseOverlay: document.querySelector("#pauseOverlay"),
     resumeOverlayButton: document.querySelector("#resumeOverlayButton"),
+
     resultValid: document.querySelector("#resultValid"),
     resultPassed: document.querySelector("#resultPassed"),
     resultTotal: document.querySelector("#resultTotal"),
     resultDetails: document.querySelector("#resultDetails"),
     replayButton: document.querySelector("#replayButton"),
     homeButton: document.querySelector("#homeButton"),
+
+    cardDialog: document.querySelector("#cardDialog"),
+    cardForm: document.querySelector("#cardForm"),
+    cardDialogTitle: document.querySelector("#cardDialogTitle"),
+    closeCardDialogButton: document.querySelector("#closeCardDialogButton"),
+    cancelCardButton: document.querySelector("#cancelCardButton"),
+    cardIdInput: document.querySelector("#cardIdInput"),
+    cardPromptInput: document.querySelector("#cardPromptInput"),
+    cardAnswerInput: document.querySelector("#cardAnswerInput"),
+    cardTitleInput: document.querySelector("#cardTitleInput"),
+    cardSourceInput: document.querySelector("#cardSourceInput"),
+    cardBoxInput: document.querySelector("#cardBoxInput"),
+    cardActiveInput: document.querySelector("#cardActiveInput"),
+
+    boxesDialog: document.querySelector("#boxesDialog"),
+    closeBoxesDialogButton: document.querySelector("#closeBoxesDialogButton"),
+    doneBoxesButton: document.querySelector("#doneBoxesButton"),
+    newBoxNameInput: document.querySelector("#newBoxNameInput"),
+    addBoxButton: document.querySelector("#addBoxButton"),
+    boxesList: document.querySelector("#boxesList"),
+
     diagnosticDialog: document.querySelector("#diagnosticDialog"),
     diagnosticOutput: document.querySelector("#diagnosticOutput"),
     copyDiagnosticButton: document.querySelector("#copyDiagnosticButton")
@@ -79,11 +134,465 @@
     pointer: null,
     wakeLock: null,
     installPrompt: null,
-    lastError: "Aucune"
+    lastError: "Aucune",
+    boxes: [],
+    cards: [],
+    settings: {
+      selectedBoxIds: [],
+      vibrationEnabled: true
+    }
   };
+
+  function safeParse(value, fallback) {
+    if (!value) return fallback;
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      recordError(error);
+      return fallback;
+    }
+  }
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function uniqueId(prefix) {
+    if (crypto?.randomUUID) return `${prefix}-${crypto.randomUUID()}`;
+    return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+
+  function loadContent() {
+    const storedBoxes = safeParse(localStorage.getItem(STORAGE_KEYS.boxes), null);
+    const storedCards = safeParse(localStorage.getItem(STORAGE_KEYS.cards), null);
+    const storedSettings = safeParse(localStorage.getItem(STORAGE_KEYS.settings), null);
+
+    state.boxes = Array.isArray(storedBoxes) && storedBoxes.length
+      ? storedBoxes
+      : clone(DEFAULT_BOXES);
+
+    if (!state.boxes.some(box => box.id === UNCATEGORIZED_ID)) {
+      state.boxes.push({ id: UNCATEGORIZED_ID, name: "Sans catégorie", protected: true });
+    }
+
+    state.cards = Array.isArray(storedCards)
+      ? storedCards
+      : clone(DEFAULT_CARDS);
+
+    state.cards = state.cards.map(card => ({
+      ...card,
+      boxId: state.boxes.some(box => box.id === card.boxId) ? card.boxId : UNCATEGORIZED_ID,
+      active: card.active !== false
+    }));
+
+    const allIds = state.boxes.map(box => box.id);
+    const selected = storedSettings?.selectedBoxIds;
+    state.settings = {
+      selectedBoxIds: Array.isArray(selected)
+        ? selected.filter(id => allIds.includes(id))
+        : [...allIds],
+      vibrationEnabled: storedSettings?.vibrationEnabled !== false
+    };
+
+    if (state.settings.selectedBoxIds.length === 0 && !storedSettings) {
+      state.settings.selectedBoxIds = [...allIds];
+    }
+
+    state.flipped = localStorage.getItem("mdb-flipped") === "1";
+    saveAllData();
+  }
+
+  function saveAllData() {
+    localStorage.setItem(STORAGE_KEYS.boxes, JSON.stringify(state.boxes));
+    localStorage.setItem(STORAGE_KEYS.cards, JSON.stringify(state.cards));
+    localStorage.setItem(STORAGE_KEYS.settings, JSON.stringify(state.settings));
+  }
 
   function showScreen(target) {
     el.screens.forEach(screen => screen.classList.toggle("active", screen === target));
+  }
+
+  function getBoxName(boxId) {
+    return state.boxes.find(box => box.id === boxId)?.name || "Sans catégorie";
+  }
+
+  function activeCountForBox(boxId) {
+    return state.cards.filter(card => card.boxId === boxId && card.active).length;
+  }
+
+  function getPlayableCards() {
+    const selected = new Set(state.settings.selectedBoxIds);
+    return state.cards.filter(card => card.active && selected.has(card.boxId));
+  }
+
+  function renderHomeData() {
+    renderBoxSelection();
+    el.vibrationToggle.checked = state.settings.vibrationEnabled;
+    const count = getPlayableCards().length;
+    el.availableCount.textContent = `${count} carte${count > 1 ? "s" : ""} disponible${count > 1 ? "s" : ""}`;
+    el.startButton.disabled = count === 0;
+  }
+
+  function renderBoxSelection() {
+    el.boxSelectionList.innerHTML = "";
+
+    state.boxes.forEach(box => {
+      const label = document.createElement("label");
+      label.className = "box-choice";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = state.settings.selectedBoxIds.includes(box.id);
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          if (!state.settings.selectedBoxIds.includes(box.id)) {
+            state.settings.selectedBoxIds.push(box.id);
+          }
+        } else {
+          state.settings.selectedBoxIds = state.settings.selectedBoxIds.filter(id => id !== box.id);
+        }
+        saveAllData();
+        renderHomeData();
+      });
+
+      const name = document.createElement("span");
+      name.textContent = box.name;
+
+      const count = document.createElement("small");
+      count.textContent = activeCountForBox(box.id);
+
+      label.append(checkbox, name, count);
+      el.boxSelectionList.append(label);
+    });
+  }
+
+  function selectAllBoxes() {
+    state.settings.selectedBoxIds = state.boxes.map(box => box.id);
+    saveAllData();
+    renderHomeData();
+  }
+
+  function selectNoBoxes() {
+    state.settings.selectedBoxIds = [];
+    saveAllData();
+    renderHomeData();
+  }
+
+  function renderManageFilters() {
+    const current = el.manageBoxFilter.value || "all";
+    el.manageBoxFilter.innerHTML = "";
+
+    const all = document.createElement("option");
+    all.value = "all";
+    all.textContent = "Toutes les boîtes";
+    el.manageBoxFilter.append(all);
+
+    state.boxes.forEach(box => {
+      const option = document.createElement("option");
+      option.value = box.id;
+      option.textContent = box.name;
+      el.manageBoxFilter.append(option);
+    });
+
+    el.manageBoxFilter.value = [...el.manageBoxFilter.options].some(option => option.value === current)
+      ? current
+      : "all";
+  }
+
+  function getFilteredCards() {
+    const search = el.cardSearchInput.value.trim().toLocaleLowerCase("fr");
+    const boxId = el.manageBoxFilter.value;
+
+    return state.cards.filter(card => {
+      const boxMatches = boxId === "all" || card.boxId === boxId;
+      if (!boxMatches) return false;
+      if (!search) return true;
+
+      const haystack = [
+        card.prompt,
+        card.answer,
+        card.title,
+        card.source,
+        getBoxName(card.boxId)
+      ].join(" ").toLocaleLowerCase("fr");
+
+      return haystack.includes(search);
+    });
+  }
+
+  function renderCardList() {
+    renderManageFilters();
+    const cards = getFilteredCards();
+    const activeTotal = state.cards.filter(card => card.active).length;
+    el.manageStats.textContent =
+      `${state.cards.length} carte${state.cards.length > 1 ? "s" : ""} · ${activeTotal} active${activeTotal > 1 ? "s" : ""} · ${cards.length} affichée${cards.length > 1 ? "s" : ""}`;
+    el.cardList.innerHTML = "";
+
+    if (cards.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "empty-list";
+      empty.textContent = "Aucune carte ne correspond à ce filtre.";
+      el.cardList.append(empty);
+      return;
+    }
+
+    cards.forEach(card => {
+      const row = document.createElement("article");
+      row.className = `manage-card-row${card.active ? "" : " inactive"}`;
+
+      const main = document.createElement("div");
+      main.className = "manage-card-main";
+
+      const title = document.createElement("strong");
+      title.textContent = card.title;
+
+      const excerpt = document.createElement("span");
+      excerpt.textContent = `${card.prompt} … ${card.answer}`;
+
+      const box = document.createElement("span");
+      box.className = "box-badge";
+      box.textContent = getBoxName(card.boxId);
+
+      main.append(title, excerpt, box);
+
+      const actions = document.createElement("div");
+      actions.className = "manage-card-actions";
+
+      const edit = makeActionButton("Modifier", () => openCardEditor(card.id));
+      const duplicate = makeActionButton("Dupliquer", () => duplicateCard(card.id));
+      const toggle = makeActionButton(card.active ? "Désactiver" : "Activer", () => toggleCard(card.id));
+      const remove = makeActionButton("Supprimer", () => deleteCard(card.id), true);
+
+      actions.append(edit, duplicate, toggle, remove);
+      row.append(main, actions);
+      el.cardList.append(row);
+    });
+  }
+
+  function makeActionButton(text, handler, danger = false) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `icon-button${danger ? " danger" : ""}`;
+    button.textContent = text;
+    button.addEventListener("click", handler);
+    return button;
+  }
+
+  function openManageScreen() {
+    renderCardList();
+    showScreen(el.manageScreen);
+  }
+
+  function closeManageScreen() {
+    renderHomeData();
+    showScreen(el.homeScreen);
+  }
+
+  function populateBoxSelect(select, selectedId) {
+    select.innerHTML = "";
+    state.boxes.forEach(box => {
+      const option = document.createElement("option");
+      option.value = box.id;
+      option.textContent = box.name;
+      select.append(option);
+    });
+    select.value = state.boxes.some(box => box.id === selectedId)
+      ? selectedId
+      : UNCATEGORIZED_ID;
+  }
+
+  function openCardEditor(cardId = null) {
+    const card = cardId ? state.cards.find(item => item.id === cardId) : null;
+
+    el.cardDialogTitle.textContent = card ? "Modifier la carte" : "Ajouter une carte";
+    el.cardIdInput.value = card?.id || "";
+    el.cardPromptInput.value = card?.prompt || "";
+    el.cardAnswerInput.value = card?.answer || "";
+    el.cardTitleInput.value = card?.title || "";
+    el.cardSourceInput.value = card?.source || "";
+    populateBoxSelect(el.cardBoxInput, card?.boxId || state.boxes[0]?.id || UNCATEGORIZED_ID);
+    el.cardActiveInput.checked = card?.active !== false;
+
+    el.cardDialog.showModal();
+    setTimeout(() => el.cardPromptInput.focus(), 50);
+  }
+
+  function closeCardEditor() {
+    el.cardDialog.close();
+  }
+
+  function saveCard(event) {
+    event.preventDefault();
+
+    const data = {
+      prompt: el.cardPromptInput.value.trim(),
+      answer: el.cardAnswerInput.value.trim(),
+      title: el.cardTitleInput.value.trim(),
+      source: el.cardSourceInput.value.trim(),
+      boxId: el.cardBoxInput.value,
+      active: el.cardActiveInput.checked
+    };
+
+    if (!data.prompt || !data.answer || !data.title || !data.source) {
+      alert("Remplis tous les champs de la carte.");
+      return;
+    }
+
+    const id = el.cardIdInput.value;
+    if (id) {
+      const index = state.cards.findIndex(card => card.id === id);
+      if (index >= 0) state.cards[index] = { ...state.cards[index], ...data };
+    } else {
+      state.cards.unshift({ id: uniqueId("lyrics"), ...data });
+    }
+
+    saveAllData();
+    closeCardEditor();
+    renderCardList();
+    renderHomeData();
+  }
+
+  function duplicateCard(cardId) {
+    const card = state.cards.find(item => item.id === cardId);
+    if (!card) return;
+
+    state.cards.unshift({
+      ...clone(card),
+      id: uniqueId("lyrics"),
+      title: `${card.title} — copie`
+    });
+
+    saveAllData();
+    renderCardList();
+    renderHomeData();
+  }
+
+  function toggleCard(cardId) {
+    const card = state.cards.find(item => item.id === cardId);
+    if (!card) return;
+    card.active = !card.active;
+    saveAllData();
+    renderCardList();
+    renderHomeData();
+  }
+
+  function deleteCard(cardId) {
+    const card = state.cards.find(item => item.id === cardId);
+    if (!card) return;
+
+    if (!confirm(`Supprimer définitivement « ${card.title} » ?`)) return;
+    state.cards = state.cards.filter(item => item.id !== cardId);
+    saveAllData();
+    renderCardList();
+    renderHomeData();
+  }
+
+  function openBoxesManager() {
+    renderBoxesList();
+    el.newBoxNameInput.value = "";
+    el.boxesDialog.showModal();
+  }
+
+  function closeBoxesManager() {
+    el.boxesDialog.close();
+    renderCardList();
+    renderHomeData();
+  }
+
+  function renderBoxesList() {
+    el.boxesList.innerHTML = "";
+
+    state.boxes.forEach(box => {
+      const row = document.createElement("div");
+      row.className = "box-row";
+
+      const main = document.createElement("div");
+      main.className = "box-row-main";
+
+      const name = document.createElement("strong");
+      name.textContent = box.name;
+
+      const count = document.createElement("small");
+      const cardCount = state.cards.filter(card => card.boxId === box.id).length;
+      count.textContent = `${cardCount} carte${cardCount > 1 ? "s" : ""}`;
+
+      main.append(name, count);
+
+      const actions = document.createElement("div");
+      actions.className = "box-row-actions";
+
+      const rename = makeActionButton("Renommer", () => renameBox(box.id));
+      actions.append(rename);
+
+      if (!box.protected && box.id !== UNCATEGORIZED_ID) {
+        const remove = makeActionButton("Supprimer", () => deleteBox(box.id), true);
+        actions.append(remove);
+      }
+
+      row.append(main, actions);
+      el.boxesList.append(row);
+    });
+  }
+
+  function addBox() {
+    const name = el.newBoxNameInput.value.trim();
+    if (!name) return;
+
+    if (state.boxes.some(box => box.name.toLocaleLowerCase("fr") === name.toLocaleLowerCase("fr"))) {
+      alert("Une boîte porte déjà ce nom.");
+      return;
+    }
+
+    const box = { id: uniqueId("box"), name };
+    state.boxes.splice(Math.max(0, state.boxes.length - 1), 0, box);
+    state.settings.selectedBoxIds.push(box.id);
+    el.newBoxNameInput.value = "";
+    saveAllData();
+    renderBoxesList();
+    renderHomeData();
+  }
+
+  function renameBox(boxId) {
+    const box = state.boxes.find(item => item.id === boxId);
+    if (!box) return;
+
+    const name = prompt("Nouveau nom de la boîte :", box.name)?.trim();
+    if (!name || name === box.name) return;
+
+    if (state.boxes.some(item => item.id !== boxId && item.name.toLocaleLowerCase("fr") === name.toLocaleLowerCase("fr"))) {
+      alert("Une autre boîte porte déjà ce nom.");
+      return;
+    }
+
+    box.name = name;
+    saveAllData();
+    renderBoxesList();
+    renderHomeData();
+  }
+
+  function deleteBox(boxId) {
+    const box = state.boxes.find(item => item.id === boxId);
+    if (!box || box.protected || boxId === UNCATEGORIZED_ID) return;
+
+    const cardCount = state.cards.filter(card => card.boxId === boxId).length;
+    const message = cardCount
+      ? `Supprimer « ${box.name} » ? Ses ${cardCount} carte${cardCount > 1 ? "s" : ""} seront déplacées dans « Sans catégorie ».`
+      : `Supprimer la boîte « ${box.name} » ?`;
+
+    if (!confirm(message)) return;
+
+    state.cards.forEach(card => {
+      if (card.boxId === boxId) card.boxId = UNCATEGORIZED_ID;
+    });
+    state.boxes = state.boxes.filter(item => item.id !== boxId);
+    state.settings.selectedBoxIds = state.settings.selectedBoxIds.filter(id => id !== boxId);
+    if (!state.settings.selectedBoxIds.includes(UNCATEGORIZED_ID)) {
+      state.settings.selectedBoxIds.push(UNCATEGORIZED_ID);
+    }
+
+    saveAllData();
+    renderBoxesList();
+    renderHomeData();
   }
 
   function shuffle(items) {
@@ -96,15 +605,24 @@
   }
 
   function refillQueue() {
-    const next = shuffle(DEMO_CARDS);
+    const playable = getPlayableCards();
+    const next = shuffle(playable);
+
     if (state.currentCard && next.length > 1 && next[0].id === state.currentCard.id) {
       [next[0], next[1]] = [next[1], next[0]];
     }
+
     state.queue.push(...next);
   }
 
   function drawNextCard() {
     if (state.queue.length === 0) refillQueue();
+
+    if (state.queue.length === 0) {
+      finishGame("empty");
+      return;
+    }
+
     state.currentCard = state.queue.shift();
     renderCard();
   }
@@ -152,7 +670,7 @@
   }
 
   function getSwipeThreshold() {
-    return Math.min(150, Math.max(85, window.innerWidth * 0.18));
+    return Math.min(105, Math.max(60, window.innerWidth * 0.12));
   }
 
   function resetCardPosition() {
@@ -160,23 +678,18 @@
     el.gameCard.style.removeProperty("--swipe-tint");
     el.gameCard.style.transform = "";
     el.gameCard.style.opacity = "1";
-    el.swipeBadge.textContent = "";
-    el.swipeBadge.className = "swipe-badge";
-    el.swipeBadge.style.opacity = "0";
   }
 
-  function vibrateForResult(result) {
+  function vibrateForResult(result, force = false) {
     if (!("vibrate" in navigator)) return;
+    if (!force && !state.settings.vibrationEnabled) return;
 
     try {
       navigator.vibrate(0);
-
       if (result === "valid") {
-        // Plusieurs petites vibrations, puis une plus marquée.
-        navigator.vibrate([35, 45, 35, 45, 120]);
+        navigator.vibrate([45, 45, 45, 45, 45]);
       } else {
-        // Une vibration longue et nette pour une carte passée.
-        navigator.vibrate(240);
+        navigator.vibrate(650);
       }
     } catch (error) {
       recordError(error);
@@ -231,6 +744,11 @@
   }
 
   async function startFlow() {
+    if (getPlayableCards().length === 0) {
+      alert("Sélectionne au moins une boîte contenant une carte active.");
+      return;
+    }
+
     state.durationMs = getRequestedSeconds() * 1000;
     state.remainingMs = state.durationMs;
     await requestGameDisplay();
@@ -305,7 +823,6 @@
   function togglePause(forcePause) {
     if (!state.running) return;
     const shouldPause = typeof forcePause === "boolean" ? forcePause : !state.paused;
-
     if (shouldPause === state.paused) return;
 
     if (shouldPause) {
@@ -390,7 +907,9 @@
       empty.style.padding = "18px";
       empty.style.margin = "0";
       empty.style.color = "var(--muted)";
-      empty.textContent = reason === "time" ? "Le temps est écoulé avant la première réponse." : "Aucune carte jouée.";
+      empty.textContent = reason === "time"
+        ? "Le temps est écoulé avant la première réponse."
+        : "Aucune carte jouée.";
       el.resultDetails.append(empty);
       return;
     }
@@ -405,10 +924,13 @@
 
       const details = document.createElement("div");
       details.className = "details";
+
       const title = document.createElement("strong");
       title.textContent = entry.card.title;
+
       const source = document.createElement("small");
       source.textContent = entry.card.source;
+
       details.append(title, source);
 
       const word = document.createElement("span");
@@ -426,13 +948,31 @@
     cancelAnimationFrame(state.rafId);
     clearInterval(state.countdownTimer);
     releaseWakeLock();
+    renderHomeData();
     showScreen(el.homeScreen);
+  }
+
+  function syncSwipeGuides() {
+    const leftResult = state.flipped ? "valid" : "pass";
+    const rightResult = state.flipped ? "pass" : "valid";
+
+    setGuide(el.leftSwipeGuide, leftResult);
+    setGuide(el.rightSwipeGuide, rightResult);
+  }
+
+  function setGuide(guide, result) {
+    guide.dataset.result = result;
+    guide.classList.toggle("guide-valid", result === "valid");
+    guide.classList.toggle("guide-pass", result === "pass");
+    const word = guide.querySelector(".guide-word");
+    word.textContent = result === "valid" ? "VALIDÉE" : "PASSÉE";
   }
 
   function setFlipped(value) {
     state.flipped = value;
     el.app.classList.toggle("flipped", state.flipped);
     localStorage.setItem("mdb-flipped", state.flipped ? "1" : "0");
+    syncSwipeGuides();
   }
 
   function toggleFlipped() {
@@ -448,7 +988,7 @@
       startX: event.clientX,
       startY: event.clientY,
       currentX: event.clientX,
-      moved: false
+      currentY: event.clientY
     };
 
     el.gameCard.setPointerCapture?.(event.pointerId);
@@ -461,8 +1001,13 @@
     const rawDx = event.clientX - state.pointer.startX;
     const dy = event.clientY - state.pointer.startY;
     state.pointer.currentX = event.clientX;
+    state.pointer.currentY = event.clientY;
 
-    if (Math.abs(rawDx) > 8 || Math.abs(dy) > 8) state.pointer.moved = true;
+    const horizontalEnough = Math.abs(rawDx) >= Math.abs(dy) * 0.65;
+    if (!horizontalEnough && Math.abs(dy) > 28) {
+      resetCardPosition();
+      return;
+    }
 
     const displayDx = state.flipped ? -rawDx : rawDx;
     const threshold = getSwipeThreshold();
@@ -470,28 +1015,23 @@
 
     el.gameCard.style.transform = `translateX(${displayDx}px) rotate(${displayDx / 45}deg)`;
     el.gameCard.style.opacity = String(1 - progress * 0.18);
-
     el.gameCard.classList.remove("swiping-valid", "swiping-pass");
-    el.gameCard.style.setProperty("--swipe-tint", String(0.08 + progress * 0.42));
+    el.gameCard.style.setProperty("--swipe-tint", String(0.07 + progress * 0.43));
 
     if (rawDx > 0) {
       el.gameCard.classList.add("swiping-valid");
-      el.swipeBadge.textContent = "VALIDÉE";
-      el.swipeBadge.className = "swipe-badge valid";
     } else if (rawDx < 0) {
       el.gameCard.classList.add("swiping-pass");
-      el.swipeBadge.textContent = "PASSÉE";
-      el.swipeBadge.className = "swipe-badge pass";
     }
-
-    el.swipeBadge.style.opacity = String(progress);
   }
 
   function onPointerEnd(event) {
     if (!state.pointer || event.pointerId !== state.pointer.id) return;
 
     const rawDx = state.pointer.currentX - state.pointer.startX;
+    const dy = state.pointer.currentY - state.pointer.startY;
     const threshold = getSwipeThreshold();
+    const horizontalEnough = Math.abs(rawDx) >= Math.abs(dy) * 0.65;
     state.pointer = null;
 
     if (!state.running || state.paused) {
@@ -499,8 +1039,8 @@
       return;
     }
 
-    if (rawDx >= threshold) commitSwipe("valid");
-    else if (rawDx <= -threshold) commitSwipe("passed");
+    if (horizontalEnough && rawDx >= threshold) commitSwipe("valid");
+    else if (horizontalEnough && rawDx <= -threshold) commitSwipe("pass");
     else resetCardPosition();
   }
 
@@ -529,7 +1069,7 @@
       window.navigator.standalone === true;
 
     const data = [
-      `Application : Mais devine, bordel !`,
+      "Application : Mais devine, bordel !",
       `Version : ${APP_VERSION}`,
       `Date : ${new Date().toISOString()}`,
       `Navigateur : ${navigator.userAgent}`,
@@ -541,9 +1081,14 @@
       `Densité de pixels : ${window.devicePixelRatio}`,
       `Pointer Events : ${"PointerEvent" in window ? "Oui" : "Non"}`,
       `Vibrations : ${"vibrate" in navigator ? "Prises en charge" : "Non prises en charge"}`,
+      `Vibrations activées : ${state.settings.vibrationEnabled ? "Oui" : "Non"}`,
       `Wake Lock : ${"wakeLock" in navigator ? "Pris en charge" : "Non pris en charge"}`,
       `Plein écran : ${document.fullscreenEnabled ? "Pris en charge" : "Non pris en charge"}`,
       `IndexedDB : ${"indexedDB" in window ? "Pris en charge" : "Non pris en charge"}`,
+      `Cartes enregistrées : ${state.cards.length}`,
+      `Boîtes enregistrées : ${state.boxes.length}`,
+      `Cartes jouables : ${getPlayableCards().length}`,
+      `Seuil du swipe : ${Math.round(getSwipeThreshold())} px`,
       `Affichage retourné : ${state.flipped ? "Oui" : "Non"}`,
       `Dernière erreur : ${state.lastError}`
     ];
@@ -565,7 +1110,9 @@
     try {
       await navigator.clipboard.writeText(text);
       el.copyDiagnosticButton.textContent = "Copié !";
-      setTimeout(() => { el.copyDiagnosticButton.textContent = "Copier le diagnostic"; }, 1200);
+      setTimeout(() => {
+        el.copyDiagnosticButton.textContent = "Copier le diagnostic";
+      }, 1200);
     } catch (error) {
       recordError(error);
       const range = document.createRange();
@@ -597,6 +1144,37 @@
     });
 
     el.startButton.addEventListener("click", startFlow);
+    el.manageCardsButton.addEventListener("click", openManageScreen);
+    el.manageBackButton.addEventListener("click", closeManageScreen);
+    el.selectAllBoxesButton.addEventListener("click", selectAllBoxes);
+    el.selectNoBoxesButton.addEventListener("click", selectNoBoxes);
+
+    el.vibrationToggle.addEventListener("change", () => {
+      state.settings.vibrationEnabled = el.vibrationToggle.checked;
+      saveAllData();
+    });
+    el.testValidVibrationButton.addEventListener("click", () => vibrateForResult("valid", true));
+    el.testPassVibrationButton.addEventListener("click", () => vibrateForResult("pass", true));
+
+    el.cardSearchInput.addEventListener("input", renderCardList);
+    el.manageBoxFilter.addEventListener("change", renderCardList);
+    el.addCardButton.addEventListener("click", () => openCardEditor());
+    el.manageBoxesButton.addEventListener("click", openBoxesManager);
+
+    el.cardForm.addEventListener("submit", saveCard);
+    el.closeCardDialogButton.addEventListener("click", closeCardEditor);
+    el.cancelCardButton.addEventListener("click", closeCardEditor);
+
+    el.closeBoxesDialogButton.addEventListener("click", closeBoxesManager);
+    el.doneBoxesButton.addEventListener("click", closeBoxesManager);
+    el.addBoxButton.addEventListener("click", addBox);
+    el.newBoxNameInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addBox();
+      }
+    });
+
     el.flipHomeButton.addEventListener("click", toggleFlipped);
     el.flipGameButton.addEventListener("click", toggleFlipped);
     el.undoButton.addEventListener("click", undoLast);
@@ -645,7 +1223,7 @@
     window.addEventListener("keydown", event => {
       if (!state.running || state.paused) return;
       if (event.key === "ArrowRight") commitSwipe("valid");
-      if (event.key === "ArrowLeft") commitSwipe("passed");
+      if (event.key === "ArrowLeft") commitSwipe("pass");
       if (event.key === "Backspace") {
         event.preventDefault();
         undoLast();
@@ -658,8 +1236,11 @@
   }
 
   function init() {
-    setFlipped(localStorage.getItem("mdb-flipped") === "1");
+    loadContent();
+    setFlipped(state.flipped);
     bindEvents();
+    renderHomeData();
+    renderManageFilters();
     renderTime();
     registerServiceWorker();
   }
