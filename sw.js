@@ -1,11 +1,12 @@
-const CACHE_NAME = "mdb-v1-0-5";
+const CACHE_NAME = "mdb-v0-2-0";
 const APP_FILES = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./data.json",
   "./manifest.webmanifest",
+  "./data.json",
+  "./mimes.json",
   "./icon-192.png",
   "./icon-512.png"
 ];
@@ -21,7 +22,11 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(keys => Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      ))
       .then(() => self.clients.claim())
   );
 });

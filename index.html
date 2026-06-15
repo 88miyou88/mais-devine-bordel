@@ -15,9 +15,9 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Version test 0.1.4 — Deviner les paroles</p>
+        <p class="eyebrow">Version test 0.2.0 — Paroles + Mime</p>
         <h1 id="appTitle">Mais devine, bordel !</h1>
-        <p class="intro">Pose le téléphone à l’horizontale sur ton front. Les autres lisent la carte et chantent.</p>
+        <p class="intro">Choisis les modes et les boîtes, puis pose le téléphone à l’horizontale sur ton front.</p>
 
         <fieldset class="timer-settings">
           <legend>Durée de la manche</legend>
@@ -35,16 +35,16 @@
           </label>
         </fieldset>
 
-        <fieldset class="box-selection-panel">
-          <legend>Boîtes utilisées</legend>
+        <fieldset class="mode-selection-panel">
+          <legend>Modes et boîtes utilisés</legend>
           <div class="selection-topline">
             <strong id="availableCount">0 carte disponible</strong>
             <div>
-              <button id="selectAllBoxesButton" class="mini-button" type="button">Tout</button>
-              <button id="selectNoBoxesButton" class="mini-button" type="button">Aucune</button>
+              <button id="selectAllButton" class="mini-button" type="button">Tout</button>
+              <button id="selectNoneButton" class="mini-button" type="button">Aucun</button>
             </div>
           </div>
-          <div id="boxSelectionList" class="box-selection-list"></div>
+          <div id="modeSelectionList" class="mode-selection-list"></div>
         </fieldset>
 
         <div class="home-actions">
@@ -63,6 +63,7 @@
               </span>
               <input id="vibrationToggle" type="checkbox" checked>
             </label>
+
             <div class="test-vibrations">
               <button id="testValidVibrationButton" class="mini-button valid-test" type="button">Tester « validé »</button>
               <button id="testPassVibrationButton" class="mini-button pass-test" type="button">Tester « passé »</button>
@@ -72,36 +73,26 @@
               <summary>Paramètres avancés</summary>
               <div class="advanced-settings-content">
                 <p class="advanced-explanation">
-                  La bibliothèque officielle vient du fichier <code>data.json</code> publié sur GitHub.
-                  Tes cartes personnelles et tes modifications restent uniquement sur ton téléphone.
+                  Chaque mode possède sa bibliothèque officielle GitHub. Les cartes personnelles et les modifications restent sur ce téléphone.
                 </p>
 
-                <div class="library-version-grid">
-                  <span>Bibliothèque installée</span>
-                  <strong id="installedLibraryVersion">—</strong>
-                  <span>Bibliothèque disponible</span>
-                  <strong id="availableLibraryVersion">—</strong>
-                  <span>Dernière vérification</span>
-                  <strong id="libraryLastChecked">Jamais</strong>
-                </div>
+                <div id="libraryVersionList" class="library-version-list"></div>
 
-                <p id="libraryStatusMessage" class="library-status-message">
-                  Vérification de la bibliothèque…
-                </p>
+                <p id="libraryLastChecked" class="library-last-checked">Dernière vérification : jamais</p>
+                <p id="libraryStatusMessage" class="library-status-message">Bibliothèques chargées.</p>
 
                 <div class="advanced-actions">
-                  <button id="checkLibraryButton" class="secondary-button compact-button" type="button">Vérifier les mises à jour</button>
-                  <button id="updateLibraryButton" class="primary-button compact-button" type="button" disabled>Mettre à jour la bibliothèque</button>
+                  <button id="checkLibrariesButton" class="secondary-button compact-button" type="button">Vérifier les mises à jour</button>
+                  <button id="updateLibrariesButton" class="primary-button compact-button" type="button" disabled>Mettre à jour les bibliothèques</button>
                   <button id="exportBackupButton" class="secondary-button compact-button" type="button">Exporter une sauvegarde</button>
                   <button id="restoreBackupButton" class="secondary-button compact-button" type="button">Restaurer une sauvegarde</button>
                   <input id="restoreBackupInput" class="hidden" type="file" accept=".json,application/json">
                   <button id="diagnosticButton" class="secondary-button compact-button" type="button">Diagnostic</button>
-                  <button id="resetLibraryButton" class="danger-button compact-button" type="button">Réinitialiser la bibliothèque officielle</button>
+                  <button id="resetLibrariesButton" class="danger-button compact-button" type="button">Réinitialiser les bibliothèques officielles</button>
                 </div>
 
                 <p class="advanced-warning">
-                  La réinitialisation remplace les cartes officielles et annule leurs modifications locales.
-                  Les cartes et boîtes personnelles sont conservées.
+                  La réinitialisation annule les modifications locales des cartes officielles, mais conserve les cartes et boîtes personnelles.
                 </p>
               </div>
             </details>
@@ -130,8 +121,10 @@
           </div>
         </header>
 
+        <div id="manageModeTabs" class="manage-mode-tabs"></div>
+
         <div class="manage-toolbar">
-          <input id="cardSearchInput" class="search-input" type="search" placeholder="Rechercher une chanson, un artiste…">
+          <input id="cardSearchInput" class="search-input" type="search" placeholder="Rechercher une carte…">
           <select id="manageBoxFilter" class="select-input" aria-label="Filtrer par boîte"></select>
           <button id="addCardButton" class="primary-button compact-button" type="button">+ Ajouter une carte</button>
           <button id="manageBoxesButton" class="secondary-button compact-button" type="button">Gérer les boîtes</button>
@@ -162,24 +155,33 @@
         </div>
       </header>
 
-      <div id="swipeStage" class="swipe-stage">
+      <div class="swipe-stage">
         <article id="gameCard" class="game-card" aria-live="polite">
           <div id="leftSwipeGuide" class="swipe-guide swipe-guide-left guide-pass" data-result="pass" aria-hidden="true">
             <span class="guide-arrow">&lt;</span>
             <span class="guide-word">PASSÉE</span>
           </div>
+
           <div id="rightSwipeGuide" class="swipe-guide swipe-guide-right guide-valid" data-result="valid" aria-hidden="true">
             <span class="guide-word">VALIDÉE</span>
             <span class="guide-arrow">&gt;</span>
           </div>
 
-          <p class="mode-label">DEVINER LES PAROLES</p>
-          <p id="promptText" class="prompt-text"></p>
-          <div class="separator">…</div>
-          <p id="answerText" class="answer-text"></p>
-          <div class="song-meta">
-            <span id="songTitle"></span>
-            <span id="songSource"></span>
+          <p id="gameModeLabel" class="mode-label">DEVINER LES PAROLES</p>
+
+          <div id="lyricsGameContent" class="mode-card-content">
+            <p id="promptText" class="prompt-text"></p>
+            <div class="separator">…</div>
+            <p id="answerText" class="answer-text"></p>
+          </div>
+
+          <div id="mimeGameContent" class="mode-card-content hidden">
+            <p id="mimePromptText" class="mime-prompt-text"></p>
+          </div>
+
+          <div id="cardMeta" class="card-meta">
+            <span id="cardMetaPrimary"></span>
+            <span id="cardMetaSecondary"></span>
           </div>
         </article>
       </div>
@@ -201,12 +203,15 @@
       <div class="results-card">
         <p class="eyebrow">Manche terminée</p>
         <h2>Résultats</h2>
+
         <div class="result-summary">
           <div><strong id="resultValid">0</strong><span>validées</span></div>
           <div><strong id="resultPassed">0</strong><span>passées</span></div>
           <div><strong id="resultTotal">0</strong><span>jouées</span></div>
         </div>
+
         <div id="resultDetails" class="result-details"></div>
+
         <div class="results-actions">
           <button id="replayButton" class="primary-button" type="button">Rejouer</button>
           <button id="homeButton" class="secondary-button" type="button">Accueil</button>
@@ -221,33 +226,56 @@
         <h2 id="cardDialogTitle">Ajouter une carte</h2>
         <button id="closeCardDialogButton" class="close-button" type="button" aria-label="Fermer">×</button>
       </div>
+
       <input id="cardIdInput" type="hidden">
-      <label>
-        Paroles à chanter
-        <textarea id="cardPromptInput" required rows="2" placeholder="Libérée, délivrée"></textarea>
-      </label>
-      <label>
-        Paroles à retrouver
-        <textarea id="cardAnswerInput" required rows="2" placeholder="Je ne mentirai plus jamais"></textarea>
-      </label>
-      <div class="form-grid">
+      <input id="cardModeInput" type="hidden">
+
+      <div id="lyricsEditorFields">
         <label>
-          Titre
-          <input id="cardTitleInput" required type="text" placeholder="Libérée, délivrée">
+          Paroles à chanter
+          <textarea id="cardPromptInput" rows="2" placeholder="Libérée, délivrée"></textarea>
         </label>
         <label>
-          Artiste / film / source
-          <input id="cardSourceInput" required type="text" placeholder="La Reine des Neiges">
+          Paroles à retrouver
+          <textarea id="cardAnswerInput" rows="2" placeholder="Je ne mentirai plus jamais"></textarea>
+        </label>
+        <div class="form-grid">
+          <label>
+            Titre
+            <input id="cardTitleInput" type="text" placeholder="Libérée, délivrée">
+          </label>
+          <label>
+            Artiste / film / source
+            <input id="cardSourceInput" type="text" placeholder="La Reine des Neiges">
+          </label>
+        </div>
+      </div>
+
+      <div id="mimeEditorFields" class="hidden">
+        <label>
+          Consigne à mimer
+          <textarea id="mimePromptInput" rows="3" placeholder="Un pigeon qui vole une frite"></textarea>
+        </label>
+        <label>
+          Difficulté
+          <select id="mimeDifficultyInput">
+            <option value="easy">Facile</option>
+            <option value="medium">Moyen</option>
+            <option value="hard">Difficile</option>
+          </select>
         </label>
       </div>
+
       <label>
         Boîte
         <select id="cardBoxInput" required></select>
       </label>
+
       <label class="checkbox-row">
         <input id="cardActiveInput" type="checkbox" checked>
         Carte active dans le jeu
       </label>
+
       <div class="dialog-actions">
         <button class="secondary-button" id="cancelCardButton" type="button">Annuler</button>
         <button class="primary-button" type="submit">Enregistrer</button>
@@ -258,7 +286,7 @@
   <dialog id="boxesDialog" class="editor-dialog">
     <form>
       <div class="dialog-header">
-        <h2>Gérer les boîtes</h2>
+        <h2 id="boxesDialogTitle">Gérer les boîtes</h2>
         <button id="closeBoxesDialogButton" class="close-button" type="button" aria-label="Fermer">×</button>
       </div>
       <div class="add-box-row">
