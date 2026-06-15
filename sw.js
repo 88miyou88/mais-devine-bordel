@@ -1,4 +1,4 @@
-const CACHE_NAME = "mdb-v1-0-1";
+const CACHE_NAME = "mdb-v1-0-2";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -29,20 +29,19 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-
-      return fetch(event.request)
-        .then(response => {
-          if (!response || response.status !== 200 || response.type === "opaque") return response;
+    fetch(event.request)
+      .then(response => {
+        if (response && response.status === 200 && response.type !== "opaque") {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
-          return response;
-        })
-        .catch(() => {
-          if (event.request.mode === "navigate") return caches.match("./index.html");
-          return Response.error();
-        });
-    })
+        }
+        return response;
+      })
+      .catch(async () => {
+        const cached = await caches.match(event.request);
+        if (cached) return cached;
+        if (event.request.mode === "navigate") return caches.match("./index.html");
+        return Response.error();
+      })
   );
 });

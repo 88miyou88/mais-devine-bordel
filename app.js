@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const APP_VERSION = "0.1.0";
+  const APP_VERSION = "0.1.1";
   const SWIPE_ANIMATION_MS = 180;
 
   const DEMO_CARDS = [
@@ -43,6 +43,7 @@
     answerText: document.querySelector("#answerText"),
     songTitle: document.querySelector("#songTitle"),
     songSource: document.querySelector("#songSource"),
+    songMeta: document.querySelector(".song-meta"),
     undoButton: document.querySelector("#undoButton"),
     pauseButton: document.querySelector("#pauseButton"),
     flipGameButton: document.querySelector("#flipGameButton"),
@@ -115,6 +116,43 @@
     el.songTitle.textContent = state.currentCard.title;
     el.songSource.textContent = state.currentCard.source;
     resetCardPosition();
+    requestAnimationFrame(fitCardContent);
+  }
+
+  function fitCardContent() {
+    el.gameCard.classList.remove("card-medium", "card-compact", "card-tiny");
+
+    const promptLength = el.promptText.textContent.trim().length;
+    const answerLength = el.answerText.textContent.trim().length;
+    const totalLength = promptLength + answerLength;
+
+    if (promptLength > 34 || answerLength > 30 || totalLength > 58) {
+      el.gameCard.classList.add("card-medium");
+    }
+    if (promptLength > 52 || answerLength > 42 || totalLength > 84) {
+      el.gameCard.classList.remove("card-medium");
+      el.gameCard.classList.add("card-compact");
+    }
+
+    requestAnimationFrame(() => {
+      const cardRect = el.gameCard.getBoundingClientRect();
+      const promptRect = el.promptText.getBoundingClientRect();
+      const answerRect = el.answerText.getBoundingClientRect();
+      const metaRect = el.songMeta.getBoundingClientRect();
+
+      const contentOverlapsMeta = answerRect.bottom > metaRect.top - 8;
+      const contentOverlapsTop = promptRect.top < cardRect.top + 48;
+      const cardOverflows = el.gameCard.scrollHeight > el.gameCard.clientHeight + 2;
+
+      if (contentOverlapsMeta || contentOverlapsTop || cardOverflows) {
+        el.gameCard.classList.remove("card-medium", "card-compact");
+        el.gameCard.classList.add("card-tiny");
+      }
+    });
+  }
+
+  function getSwipeThreshold() {
+    return Math.min(150, Math.max(85, window.innerWidth * 0.18));
   }
 
   function resetCardPosition() {
@@ -403,7 +441,7 @@
     if (Math.abs(rawDx) > 8 || Math.abs(dy) > 8) state.pointer.moved = true;
 
     const displayDx = state.flipped ? -rawDx : rawDx;
-    const threshold = Math.max(120, window.innerWidth / 3);
+    const threshold = getSwipeThreshold();
     const progress = Math.min(1, Math.abs(rawDx) / threshold);
 
     el.gameCard.style.transform = `translateX(${displayDx}px) rotate(${displayDx / 45}deg)`;
@@ -424,7 +462,7 @@
     if (!state.pointer || event.pointerId !== state.pointer.id) return;
 
     const rawDx = state.pointer.currentX - state.pointer.startX;
-    const threshold = Math.max(120, window.innerWidth / 3);
+    const threshold = getSwipeThreshold();
     state.pointer = null;
 
     if (!state.running || state.paused) {

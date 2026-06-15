@@ -304,12 +304,13 @@ h2 { font-size: clamp(2rem, 5vw, 3rem); }
     linear-gradient(145deg, rgba(185,129,255,.12), transparent 42%),
     rgba(21,25,34,.97);
   box-shadow: 0 22px 70px rgba(0,0,0,.36);
-  padding: clamp(16px, 3vw, 34px);
+  padding: clamp(54px, 8vh, 68px) clamp(16px, 3vw, 34px) clamp(70px, 12vh, 88px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
@@ -321,11 +322,19 @@ h2 { font-size: clamp(2rem, 5vw, 3rem); }
 }
 
 .mode-label {
-  margin: 0 0 12px;
-  font-size: clamp(.68rem, 1.7vw, 1rem);
+  position: absolute;
+  top: clamp(10px, 2.2vh, 18px);
+  left: 80px;
+  right: 80px;
+  margin: 0;
+  font-size: clamp(.65rem, 1.55vw, .95rem);
+  line-height: 1.1;
   letter-spacing: .14em;
   font-weight: 1000;
   color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .prompt-text {
@@ -351,18 +360,64 @@ h2 { font-size: clamp(2rem, 5vw, 3rem); }
   text-wrap: balance;
 }
 
+.game-card.card-medium .prompt-text {
+  font-size: clamp(1.75rem, 5.35vw, 4.5rem);
+}
+
+.game-card.card-medium .answer-text {
+  font-size: clamp(1.45rem, 4.55vw, 3.7rem);
+}
+
+.game-card.card-compact .prompt-text {
+  font-size: clamp(1.5rem, 4.55vw, 3.8rem);
+  line-height: .98;
+}
+
+.game-card.card-compact .answer-text {
+  font-size: clamp(1.3rem, 3.9vw, 3.15rem);
+  line-height: .98;
+}
+
+.game-card.card-tiny .prompt-text {
+  font-size: clamp(1.25rem, 3.85vw, 3.15rem);
+  line-height: .96;
+}
+
+.game-card.card-tiny .answer-text {
+  font-size: clamp(1.1rem, 3.25vw, 2.65rem);
+  line-height: .96;
+}
+
+.game-card.card-compact .separator,
+.game-card.card-tiny .separator {
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
+  margin: 0;
+}
+
 .song-meta {
-  margin-top: clamp(12px, 2.5vh, 24px);
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: clamp(9px, 1.8vh, 15px);
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  gap: 1px;
   color: var(--muted);
-  font-size: clamp(.82rem, 2vw, 1.15rem);
+  font-size: clamp(.72rem, 1.65vw, 1rem);
+  line-height: 1.08;
+  pointer-events: none;
+}
+
+.song-meta span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .song-meta span:first-child {
   color: var(--text);
-  font-weight: 800;
+  font-weight: 850;
 }
 
 .swipe-badge {
@@ -551,9 +606,19 @@ h2 { font-size: clamp(2rem, 5vw, 3rem); }
 @media (max-height: 450px) {
   .game-header { min-height: 46px; }
   .game-controls { min-height: 46px; }
-  .game-card { border-radius: 18px; padding: 12px 24px; }
-  .mode-label { margin-bottom: 5px; }
-  .song-meta { margin-top: 7px; }
+  .game-card {
+    border-radius: 18px;
+    padding: 43px 22px 61px;
+  }
+  .mode-label {
+    top: 8px;
+    left: 72px;
+    right: 72px;
+  }
+  .song-meta {
+    bottom: 7px;
+    font-size: clamp(.68rem, 1.45vw, .9rem);
+  }
 }
 
 @media (max-width: 560px) {
