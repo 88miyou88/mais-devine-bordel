@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const APP_VERSION = "0.1.1";
+  const APP_VERSION = "0.1.2";
   const SWIPE_ANIMATION_MS = 180;
 
   const DEMO_CARDS = [
@@ -156,12 +156,31 @@
   }
 
   function resetCardPosition() {
-    el.gameCard.classList.remove("animating");
+    el.gameCard.classList.remove("animating", "swiping-valid", "swiping-pass");
+    el.gameCard.style.removeProperty("--swipe-tint");
     el.gameCard.style.transform = "";
     el.gameCard.style.opacity = "1";
     el.swipeBadge.textContent = "";
     el.swipeBadge.className = "swipe-badge";
     el.swipeBadge.style.opacity = "0";
+  }
+
+  function vibrateForResult(result) {
+    if (!("vibrate" in navigator)) return;
+
+    try {
+      navigator.vibrate(0);
+
+      if (result === "valid") {
+        // Plusieurs petites vibrations, puis une plus marquée.
+        navigator.vibrate([35, 45, 35, 45, 120]);
+      } else {
+        // Une vibration longue et nette pour une carte passée.
+        navigator.vibrate(240);
+      }
+    } catch (error) {
+      recordError(error);
+    }
   }
 
   function getRequestedSeconds() {
@@ -315,6 +334,11 @@
     else state.passed += 1;
 
     updateScores();
+    vibrateForResult(result);
+
+    el.gameCard.classList.remove("swiping-valid", "swiping-pass");
+    el.gameCard.classList.add(result === "valid" ? "swiping-valid" : "swiping-pass");
+    el.gameCard.style.setProperty("--swipe-tint", "0.58");
 
     const direction = result === "valid" ? 1 : -1;
     const displayDirection = state.flipped ? -direction : direction;
@@ -447,10 +471,15 @@
     el.gameCard.style.transform = `translateX(${displayDx}px) rotate(${displayDx / 45}deg)`;
     el.gameCard.style.opacity = String(1 - progress * 0.18);
 
+    el.gameCard.classList.remove("swiping-valid", "swiping-pass");
+    el.gameCard.style.setProperty("--swipe-tint", String(0.08 + progress * 0.42));
+
     if (rawDx > 0) {
+      el.gameCard.classList.add("swiping-valid");
       el.swipeBadge.textContent = "VALIDÉE";
       el.swipeBadge.className = "swipe-badge valid";
     } else if (rawDx < 0) {
+      el.gameCard.classList.add("swiping-pass");
       el.swipeBadge.textContent = "PASSÉE";
       el.swipeBadge.className = "swipe-badge pass";
     }
@@ -511,6 +540,7 @@
       `Fenêtre : ${window.innerWidth} × ${window.innerHeight}`,
       `Densité de pixels : ${window.devicePixelRatio}`,
       `Pointer Events : ${"PointerEvent" in window ? "Oui" : "Non"}`,
+      `Vibrations : ${"vibrate" in navigator ? "Prises en charge" : "Non prises en charge"}`,
       `Wake Lock : ${"wakeLock" in navigator ? "Pris en charge" : "Non pris en charge"}`,
       `Plein écran : ${document.fullscreenEnabled ? "Pris en charge" : "Non pris en charge"}`,
       `IndexedDB : ${"indexedDB" in window ? "Pris en charge" : "Non pris en charge"}`,
