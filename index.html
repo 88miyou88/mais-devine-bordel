@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#111318">
+  <meta name="description" content="Prototype V1 de Mais devine, bordel !">
+  <title>Mais devine, bordel !</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
+      <div class="home-card">
+        <p class="eyebrow">Prototype V1 — Deviner les paroles</p>
+        <h1 id="appTitle">Mais devine, bordel !</h1>
+        <p class="intro">Pose le téléphone à l’horizontale sur ton front. Les autres lisent la carte et chantent.</p>
+
+        <fieldset class="timer-settings">
+          <legend>Durée de la manche</legend>
+          <div class="preset-row" role="radiogroup" aria-label="Durée">
+            <button class="duration-btn" data-seconds="30" type="button">30 s</button>
+            <button class="duration-btn selected" data-seconds="60" type="button">60 s</button>
+            <button class="duration-btn" data-seconds="90" type="button">90 s</button>
+          </div>
+          <label class="custom-duration">
+            Durée personnalisée
+            <span>
+              <input id="customSeconds" type="number" min="10" max="600" step="5" inputmode="numeric" placeholder="ex. 45">
+              secondes
+            </span>
+          </label>
+        </fieldset>
+
+        <div class="home-actions">
+          <button id="startButton" class="primary-button" type="button">Lancer la partie</button>
+          <button id="installButton" class="secondary-button hidden" type="button">Installer l’application</button>
+        </div>
+
+        <div class="quick-rules">
+          <span><b>→</b> Validé</span>
+          <span><b>←</b> Passé</span>
+          <span><b>↶</b> Retour</span>
+        </div>
+
+        <div class="utility-row">
+          <button id="flipHomeButton" class="text-button" type="button">Retourner l’affichage à 180°</button>
+          <button id="diagnosticButton" class="text-button" type="button">Diagnostic</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="countdownScreen" class="screen" aria-live="assertive">
+      <div id="countdownValue" class="countdown-value">3</div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <header class="game-header">
+        <div class="time-block" aria-label="Temps restant">
+          <span class="header-label">TEMPS</span>
+          <span id="timeDisplay" class="time-display">60</span>
+        </div>
+        <div class="score-block valid">
+          <span class="header-label">VALIDÉES</span>
+          <span id="validScore">0</span>
+        </div>
+        <div class="score-block passed">
+          <span class="header-label">PASSÉES</span>
+          <span id="passScore">0</span>
+        </div>
+      </header>
+
+      <div id="swipeStage" class="swipe-stage">
+        <article id="gameCard" class="game-card" aria-live="polite">
+          <div id="swipeBadge" class="swipe-badge"></div>
+          <p class="mode-label">DEVINER LES PAROLES</p>
+          <p id="promptText" class="prompt-text"></p>
+          <div class="separator">…</div>
+          <p id="answerText" class="answer-text"></p>
+          <div class="song-meta">
+            <span id="songTitle"></span>
+            <span id="songSource"></span>
+          </div>
+        </article>
+      </div>
+
+      <div id="pauseOverlay" class="pause-overlay hidden" role="dialog" aria-modal="true">
+        <p>PAUSE</p>
+        <button id="resumeOverlayButton" class="primary-button" type="button">Reprendre</button>
+      </div>
+
+      <footer class="game-controls">
+        <button id="undoButton" class="control-button" type="button" disabled>↶ Retour</button>
+        <button id="pauseButton" class="control-button" type="button">Ⅱ Pause</button>
+        <button id="flipGameButton" class="control-button" type="button">↻ Retourner</button>
+        <button id="endButton" class="control-button danger" type="button">■ Terminer</button>
+      </footer>
+    </section>
+
+    <section id="resultsScreen" class="screen">
+      <div class="results-card">
+        <p class="eyebrow">Manche terminée</p>
+        <h2>Résultats</h2>
+        <div class="result-summary">
+          <div><strong id="resultValid">0</strong><span>validées</span></div>
+          <div><strong id="resultPassed">0</strong><span>passées</span></div>
+          <div><strong id="resultTotal">0</strong><span>jouées</span></div>
+        </div>
+        <div id="resultDetails" class="result-details"></div>
+        <div class="results-actions">
+          <button id="replayButton" class="primary-button" type="button">Rejouer</button>
+          <button id="homeButton" class="secondary-button" type="button">Accueil</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="diagnosticDialog" class="diagnostic-dialog">
+    <form method="dialog">
+      <div class="dialog-header">
+        <h2>Diagnostic</h2>
+        <button class="close-button" value="close" aria-label="Fermer">×</button>
+      </div>
+      <pre id="diagnosticOutput"></pre>
+      <div class="dialog-actions">
+        <button id="copyDiagnosticButton" class="primary-button" type="button">Copier le diagnostic</button>
+        <button class="secondary-button" value="close">Fermer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
