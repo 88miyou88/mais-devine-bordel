@@ -15,9 +15,9 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Version test 0.2.0 — Paroles + Mime</p>
+        <p class="eyebrow">Version test 0.3.0 — Trois modes</p>
         <h1 id="appTitle">Mais devine, bordel !</h1>
-        <p class="intro">Choisis les modes et les boîtes, puis pose le téléphone à l’horizontale sur ton front.</p>
+        <p class="intro">Choisis tes modes comme des applis. Touche un carré pour voir les règles, les niveaux et les catégories.</p>
 
         <fieldset class="timer-settings">
           <legend>Durée de la manche</legend>
@@ -36,7 +36,7 @@
         </fieldset>
 
         <fieldset class="mode-selection-panel">
-          <legend>Modes et boîtes utilisés</legend>
+          <legend>Modes de jeu</legend>
           <div class="selection-topline">
             <strong id="availableCount">0 carte disponible</strong>
             <div>
@@ -44,7 +44,8 @@
               <button id="selectNoneButton" class="mini-button" type="button">Aucun</button>
             </div>
           </div>
-          <div id="modeSelectionList" class="mode-selection-list"></div>
+          <div id="modeSelectionList" class="mode-app-grid"></div>
+          <p class="mode-grid-help">Les catégories restent cachées ici pour garder un accueil compact.</p>
         </fieldset>
 
         <div class="home-actions">
@@ -179,6 +180,14 @@
             <p id="mimePromptText" class="mime-prompt-text"></p>
           </div>
 
+          <div id="wordsGameContent" class="mode-card-content hidden">
+            <p id="wordPromptText" class="word-prompt-text"></p>
+            <div id="forbiddenWordsBlock" class="forbidden-words-block">
+              <span class="forbidden-title">MOTS INTERDITS</span>
+              <div id="forbiddenWordsList" class="forbidden-words-list"></div>
+            </div>
+          </div>
+
           <div id="cardMeta" class="card-meta">
             <span id="cardMetaPrimary"></span>
             <span id="cardMetaSecondary"></span>
@@ -220,6 +229,73 @@
     </section>
   </main>
 
+  <dialog id="modeConfigDialog" class="mode-config-dialog">
+    <form>
+      <div id="modeDialogHero" class="mode-dialog-hero">
+        <div id="modeDialogIcon" class="mode-dialog-icon" aria-hidden="true"></div>
+        <div class="mode-dialog-heading">
+          <p class="eyebrow">Réglages du mode</p>
+          <h2 id="modeDialogTitle">Mode</h2>
+          <p id="modeDialogDescription"></p>
+        </div>
+        <button id="closeModeDialogButton" class="close-button mode-dialog-close" type="button" aria-label="Fermer">×</button>
+      </div>
+
+      <div class="mode-dialog-body">
+        <label class="mode-enable-row">
+          <span>
+            <strong>Inclure ce mode dans la partie</strong>
+            <small id="modeDialogCount">0 carte sélectionnée</small>
+          </span>
+          <input id="modeEnabledInput" type="checkbox" checked>
+        </label>
+
+        <section class="mode-rule-card">
+          <h3>Comment jouer ?</h3>
+          <ul id="modeRulesList"></ul>
+        </section>
+
+        <section class="mode-setting-section">
+          <div class="section-title-row">
+            <div>
+              <h3>Difficulté</h3>
+              <p>Ce filtre s’applique à toutes les catégories du mode.</p>
+            </div>
+          </div>
+          <div id="modeDifficultyChoices" class="difficulty-choice-grid"></div>
+        </section>
+
+        <section id="wordsSpecialSettings" class="mode-setting-section hidden">
+          <label class="special-option-row">
+            <span>
+              <strong>Afficher les mots interdits</strong>
+              <small>Ils apparaîtront en rouge sous le mot à faire deviner.</small>
+            </span>
+            <input id="showForbiddenWordsInput" type="checkbox" checked>
+          </label>
+        </section>
+
+        <section class="mode-setting-section">
+          <div class="section-title-row">
+            <div>
+              <h3>Catégories</h3>
+              <p>Choisis les boîtes utilisées pour ce mode.</p>
+            </div>
+            <div class="section-mini-actions">
+              <button id="modeSelectAllBoxesButton" class="mini-button" type="button">Tout</button>
+              <button id="modeSelectNoBoxesButton" class="mini-button" type="button">Aucun</button>
+            </div>
+          </div>
+          <div id="modeBoxChoices" class="mode-box-choice-grid"></div>
+        </section>
+      </div>
+
+      <div class="dialog-actions one-column mode-dialog-actions">
+        <button id="doneModeDialogButton" class="primary-button" type="button">Terminer</button>
+      </div>
+    </form>
+  </dialog>
+
   <dialog id="cardDialog" class="editor-dialog">
     <form id="cardForm">
       <div class="dialog-header">
@@ -256,15 +332,28 @@
           Consigne à mimer
           <textarea id="mimePromptInput" rows="3" placeholder="Un pigeon qui vole une frite"></textarea>
         </label>
+      </div>
+
+      <div id="wordsEditorFields" class="hidden">
         <label>
-          Difficulté
-          <select id="mimeDifficultyInput">
-            <option value="easy">Facile</option>
-            <option value="medium">Moyen</option>
-            <option value="hard">Difficile</option>
-          </select>
+          Mot ou expression à faire deviner
+          <textarea id="wordPromptInput" rows="2" placeholder="Ornithorynque"></textarea>
+        </label>
+        <label>
+          Mots interdits
+          <textarea id="forbiddenWordsInput" rows="3" placeholder="bec, canard, Australie, mammifère, castor"></textarea>
+          <small>Sépare les mots par des virgules ou des retours à la ligne.</small>
         </label>
       </div>
+
+      <label>
+        Difficulté
+        <select id="cardDifficultyInput">
+          <option value="easy">Facile</option>
+          <option value="medium">Moyen</option>
+          <option value="hard">Difficile</option>
+        </select>
+      </label>
 
       <label>
         Boîte

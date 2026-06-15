@@ -1,4 +1,4 @@
-const CACHE_NAME = "mdb-v0-2-0";
+const CACHE_NAME = "mdb-v0-3-0";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const APP_FILES = [
   "./manifest.webmanifest",
   "./data.json",
   "./mimes.json",
+  "./words.json",
   "./icon-192.png",
   "./icon-512.png"
 ];
@@ -23,9 +24,7 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
@@ -33,7 +32,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
-
   event.respondWith(
     fetch(event.request)
       .then(response => {

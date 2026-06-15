@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "2026.06.15-2",
+  "libraryVersion": "2026.06.15-3",
   "updatedAt": "2026-06-15",
   "modeId": "lyrics",
   "modeName": "Deviner les paroles",
@@ -51,7 +51,8 @@
       "prompt": "Libérée, délivrée",
       "answer": "Je ne mentirai plus jamais",
       "title": "Libérée, délivrée",
-      "source": "La Reine des Neiges"
+      "source": "La Reine des Neiges",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-002",
@@ -60,7 +61,8 @@
       "prompt": "Terres brûlées au vent",
       "answer": "Des landes de pierre",
       "title": "Les Lacs du Connemara",
-      "source": "Michel Sardou"
+      "source": "Michel Sardou",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-003",
@@ -69,7 +71,8 @@
       "prompt": "Frère Jacques, Frère Jacques",
       "answer": "Dormez-vous ? Dormez-vous ?",
       "title": "Frère Jacques",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-004",
@@ -78,7 +81,8 @@
       "prompt": "Je te donne toutes mes différences",
       "answer": "Tous ces défauts qui sont autant de chances",
       "title": "Je te donne",
-      "source": "Jean-Jacques Goldman & Michael Jones"
+      "source": "Jean-Jacques Goldman & Michael Jones",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-013",
@@ -87,7 +91,8 @@
       "prompt": "Dites-moi d’où il vient",
       "answer": "Enfin, je saurai où je vais",
       "title": "Papaoutai",
-      "source": "Stromae"
+      "source": "Stromae",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-005",
@@ -96,7 +101,8 @@
       "prompt": "Ce rêve bleu",
       "answer": "Je n’y crois pas, c’est merveilleux",
       "title": "Ce rêve bleu",
-      "source": "Aladdin"
+      "source": "Aladdin",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-006",
@@ -105,7 +111,8 @@
       "prompt": "J’ai demandé à la lune",
       "answer": "Et le soleil ne le sait pas",
       "title": "J’ai demandé à la lune",
-      "source": "Indochine"
+      "source": "Indochine",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-007",
@@ -114,7 +121,8 @@
       "prompt": "Une souris verte",
       "answer": "Qui courait dans l’herbe",
       "title": "Une souris verte",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-008",
@@ -123,7 +131,8 @@
       "prompt": "J’irai chercher ton cœur",
       "answer": "Si tu l’emportes ailleurs",
       "title": "Pour que tu m’aimes encore",
-      "source": "Céline Dion"
+      "source": "Céline Dion",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-009",
@@ -132,7 +141,8 @@
       "prompt": "Hakuna Matata",
       "answer": "Quelle phrase magnifique",
       "title": "Hakuna Matata",
-      "source": "Le Roi Lion"
+      "source": "Le Roi Lion",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-014",
@@ -141,7 +151,8 @@
       "prompt": "J’irai au bout de mes rêves",
       "answer": "Où la raison s’achève",
       "title": "Au bout de mes rêves",
-      "source": "Jean-Jacques Goldman"
+      "source": "Jean-Jacques Goldman",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-015",
@@ -150,7 +161,8 @@
       "prompt": "Au clair de la lune",
       "answer": "Mon ami Pierrot",
       "title": "Au clair de la lune",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-016",
@@ -159,7 +171,8 @@
       "prompt": "Je vais t’aimer comme on ne t’a jamais aimée",
       "answer": "Je vais t’aimer",
       "title": "Je vais t’aimer",
-      "source": "Michel Sardou"
+      "source": "Michel Sardou",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-017",
@@ -168,7 +181,8 @@
       "prompt": "Il est venu le temps des cathédrales",
       "answer": "Le monde est entré dans un nouveau millénaire",
       "title": "Le Temps des cathédrales",
-      "source": "Notre-Dame de Paris"
+      "source": "Notre-Dame de Paris",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-018",
@@ -177,7 +191,8 @@
       "prompt": "Voyage, voyage",
       "answer": "Plus loin que la nuit et le jour",
       "title": "Voyage, voyage",
-      "source": "Desireless"
+      "source": "Desireless",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-010",
@@ -186,7 +201,8 @@
       "prompt": "Je voue mes nuits à l’assasymphonie",
       "answer": "Aux requiems anatomiques",
       "title": "L’Assasymphonie",
-      "source": "Mozart, l’Opéra Rock"
+      "source": "Mozart, l’Opéra Rock",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-012",
@@ -195,7 +211,8 @@
       "prompt": "Aux Champs-Élysées, aux Champs-Élysées",
       "answer": "Au soleil, sous la pluie",
       "title": "Les Champs-Élysées",
-      "source": "Joe Dassin"
+      "source": "Joe Dassin",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-019",
@@ -204,7 +221,8 @@
       "prompt": "Il en faut peu pour être heureux",
       "answer": "Vraiment très peu pour être heureux",
       "title": "Il en faut peu pour être heureux",
-      "source": "Le Livre de la Jungle"
+      "source": "Le Livre de la Jungle",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-011",
@@ -213,7 +231,8 @@
       "prompt": "Tatoue-moi sur ta peau",
       "answer": "À l’encre de tes mots",
       "title": "Tatoue-moi",
-      "source": "Mozart, l’Opéra Rock"
+      "source": "Mozart, l’Opéra Rock",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-020",
@@ -222,7 +241,8 @@
       "prompt": "Résiste, prouve que tu existes",
       "answer": "Cherche ton bonheur partout, va",
       "title": "Résiste",
-      "source": "France Gall"
+      "source": "France Gall",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-021",
@@ -231,7 +251,8 @@
       "prompt": "Promenons-nous dans les bois",
       "answer": "Pendant que le loup n’y est pas",
       "title": "Promenons-nous dans les bois",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-022",
@@ -240,7 +261,8 @@
       "prompt": "Ne la laisse pas tomber",
       "answer": "Elle est si fragile",
       "title": "Femme libérée",
-      "source": "Cookie Dingler"
+      "source": "Cookie Dingler",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-023",
@@ -249,7 +271,8 @@
       "prompt": "Je suis malade",
       "answer": "Complètement malade",
       "title": "Je suis malade",
-      "source": "Serge Lama"
+      "source": "Serge Lama",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-024",
@@ -258,7 +281,8 @@
       "prompt": "J’irai où tu iras",
       "answer": "Mon pays sera toi",
       "title": "J’irai où tu iras",
-      "source": "Céline Dion & Jean-Jacques Goldman"
+      "source": "Céline Dion & Jean-Jacques Goldman",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-025",
@@ -267,7 +291,8 @@
       "prompt": "Savez-vous planter les choux",
       "answer": "À la mode, à la mode",
       "title": "Savez-vous planter les choux",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-026",
@@ -276,7 +301,8 @@
       "prompt": "Quand la musique est bonne",
       "answer": "Quand la musique donne",
       "title": "Quand la musique est bonne",
-      "source": "Jean-Jacques Goldman"
+      "source": "Jean-Jacques Goldman",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-027",
@@ -285,7 +311,8 @@
       "prompt": "Jeune demoiselle recherche un mec mortel",
       "answer": "Un mec qui pourrait me donner des ailes",
       "title": "Jeune demoiselle",
-      "source": "Diam’s"
+      "source": "Diam’s",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-028",
@@ -294,7 +321,8 @@
       "prompt": "Dans la vallée, oh oh",
       "answer": "De Dana, la li la la",
       "title": "La Tribu de Dana",
-      "source": "Manau"
+      "source": "Manau",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-029",
@@ -303,7 +331,8 @@
       "prompt": "Sur le pont d’Avignon",
       "answer": "On y danse, on y danse",
       "title": "Sur le pont d’Avignon",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-030",
@@ -312,7 +341,8 @@
       "prompt": "Je fais de toi mon essentiel",
       "answer": "Tu me fais naître parmi les hommes",
       "title": "Mon essentiel",
-      "source": "Emmanuel Moire / Le Roi Soleil"
+      "source": "Emmanuel Moire / Le Roi Soleil",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-031",
@@ -321,7 +351,8 @@
       "prompt": "Elle répondait au nom de Bella",
       "answer": "Les gens du coin ne voulaient pas la lâcher",
       "title": "Bella",
-      "source": "Gims"
+      "source": "Gims",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-032",
@@ -330,7 +361,8 @@
       "prompt": "Le vent l’emportera",
       "answer": "Tout disparaîtra",
       "title": "Le vent nous portera",
-      "source": "Noir Désir"
+      "source": "Noir Désir",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-033",
@@ -339,7 +371,8 @@
       "prompt": "Meunier, tu dors",
       "answer": "Ton moulin va trop vite",
       "title": "Meunier, tu dors",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-034",
@@ -348,7 +381,8 @@
       "prompt": "Et j’ai crié, crié, Aline",
       "answer": "Pour qu’elle revienne",
       "title": "Aline",
-      "source": "Christophe"
+      "source": "Christophe",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-035",
@@ -357,7 +391,8 @@
       "prompt": "Vivre à en crever",
       "answer": "Pour décrocher les étoiles",
       "title": "Vivre à en crever",
-      "source": "Mozart, l’Opéra Rock"
+      "source": "Mozart, l’Opéra Rock",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-036",
@@ -366,7 +401,8 @@
       "prompt": "Tout le monde veut devenir un cat",
       "answer": "Parce qu’un chat quand il est cat",
       "title": "Tout le monde veut devenir un cat",
-      "source": "Les Aristochats"
+      "source": "Les Aristochats",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-037",
@@ -375,7 +411,8 @@
       "prompt": "J’en ai marre de ceux qui pleurent",
       "answer": "Qui ne roulent qu’à deux à l’heure",
       "title": "J’en ai marre !",
-      "source": "Alizée"
+      "source": "Alizée",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-038",
@@ -384,7 +421,8 @@
       "prompt": "Égaré dans la vallée infernale",
       "answer": "Le héros s’appelle Bob Morane",
       "title": "L’Aventurier",
-      "source": "Indochine"
+      "source": "Indochine",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-039",
@@ -393,7 +431,8 @@
       "prompt": "Ainsi font, font, font",
       "answer": "Les petites marionnettes",
       "title": "Ainsi font, font, font",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-040",
@@ -402,7 +441,8 @@
       "prompt": "Je remue le ciel, le jour, la nuit",
       "answer": "Je danse avec le vent, la pluie",
       "title": "Dernière danse",
-      "source": "Indila"
+      "source": "Indila",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-041",
@@ -411,7 +451,8 @@
       "prompt": "Non, je ne regrette rien",
       "answer": "Ni le bien qu’on m’a fait",
       "title": "Non, je ne regrette rien",
-      "source": "Édith Piaf"
+      "source": "Édith Piaf",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-042",
@@ -420,7 +461,8 @@
       "prompt": "Il était un petit navire",
       "answer": "Qui n’avait jamais navigué",
       "title": "Il était un petit navire",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-043",
@@ -429,7 +471,8 @@
       "prompt": "Toi plus moi, plus eux",
       "answer": "Plus tous ceux qui le veulent",
       "title": "Toi + Moi",
-      "source": "Grégoire"
+      "source": "Grégoire",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-044",
@@ -438,7 +481,8 @@
       "prompt": "Alexandrie, Alexandra",
       "answer": "Alexandrie où l’amour danse avec la nuit",
       "title": "Alexandrie Alexandra",
-      "source": "Claude François"
+      "source": "Claude François",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-045",
@@ -447,7 +491,8 @@
       "prompt": "On écrit sur les murs",
       "answer": "Le nom de ceux qu’on aime",
       "title": "On écrit sur les murs",
-      "source": "Demis Roussos / Kids United"
+      "source": "Demis Roussos / Kids United",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-046",
@@ -456,7 +501,8 @@
       "prompt": "Deux étrangers au bout du monde",
       "answer": "Si différents",
       "title": "Manhattan-Kaboul",
-      "source": "Renaud & Axelle Red"
+      "source": "Renaud & Axelle Red",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-047",
@@ -465,7 +511,8 @@
       "prompt": "Il était un petit homme",
       "answer": "Pirouette, cacahuète",
       "title": "Pirouette Cacahuète",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-048",
@@ -474,7 +521,8 @@
       "prompt": "Pour un flirt avec toi",
       "answer": "Je ferais n’importe quoi",
       "title": "Pour un flirt",
-      "source": "Michel Delpech"
+      "source": "Michel Delpech",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-049",
@@ -483,7 +531,8 @@
       "prompt": "Envole-moi, envole-moi",
       "answer": "Loin de cette fatalité",
       "title": "Envole-moi",
-      "source": "Jean-Jacques Goldman"
+      "source": "Jean-Jacques Goldman",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-050",
@@ -492,7 +541,8 @@
       "prompt": "Une poule sur un mur",
       "answer": "Qui picote du pain dur",
       "title": "Une poule sur un mur",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-051",
@@ -501,7 +551,8 @@
       "prompt": "Belle",
       "answer": "C’est un mot qu’on dirait inventé pour elle",
       "title": "Belle",
-      "source": "Notre-Dame de Paris"
+      "source": "Notre-Dame de Paris",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-052",
@@ -510,7 +561,8 @@
       "prompt": "Là-bas, tout est neuf et tout est sauvage",
       "answer": "Libre continent sans grillage",
       "title": "Là-bas",
-      "source": "Jean-Jacques Goldman & Sirima"
+      "source": "Jean-Jacques Goldman & Sirima",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-053",
@@ -519,7 +571,8 @@
       "prompt": "Les démons de minuit",
       "answer": "M’entraînent jusqu’à l’insomnie",
       "title": "Les Démons de minuit",
-      "source": "Images"
+      "source": "Images",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-054",
@@ -528,7 +581,8 @@
       "prompt": "Est-ce que tu m’aimes ?",
       "answer": "J’sais pas si je t’aime",
       "title": "Est-ce que tu m’aimes ?",
-      "source": "Gims"
+      "source": "Gims",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-055",
@@ -537,7 +591,8 @@
       "prompt": "Alouette, gentille alouette",
       "answer": "Alouette, je te plumerai",
       "title": "Alouette",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-056",
@@ -546,7 +601,8 @@
       "prompt": "Et dans ces soirées-là",
       "answer": "On drague, on branche",
       "title": "Ces soirées-là",
-      "source": "Yannick"
+      "source": "Yannick",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-057",
@@ -555,7 +611,8 @@
       "prompt": "Mes chers parents, je pars",
       "answer": "Je vous aime, mais je pars",
       "title": "Je vole",
-      "source": "Michel Sardou"
+      "source": "Michel Sardou",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-058",
@@ -564,7 +621,8 @@
       "prompt": "La bohème, la bohème",
       "answer": "Ça voulait dire on est heureux",
       "title": "La Bohème",
-      "source": "Charles Aznavour"
+      "source": "Charles Aznavour",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-059",
@@ -573,7 +631,8 @@
       "prompt": "À la pêche aux moules",
       "answer": "Je ne veux plus y aller, maman",
       "title": "À la pêche aux moules",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-060",
@@ -582,7 +641,8 @@
       "prompt": "Le lundi au soleil",
       "answer": "C’est une chose qu’on n’aura jamais",
       "title": "Le lundi au soleil",
-      "source": "Claude François"
+      "source": "Claude François",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-061",
@@ -591,7 +651,8 @@
       "prompt": "Un autre monde",
       "answer": "Où la Terre serait ronde",
       "title": "Un autre monde",
-      "source": "Téléphone"
+      "source": "Téléphone",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-062",
@@ -600,7 +661,8 @@
       "prompt": "À la faveur de l’automne",
       "answer": "Revient cette douce mélancolie",
       "title": "À la faveur de l’automne",
-      "source": "Tété"
+      "source": "Tété",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-063",
@@ -609,7 +671,8 @@
       "prompt": "Il suffira d’une étincelle",
       "answer": "D’un rien, d’un geste",
       "title": "Allumer le feu",
-      "source": "Johnny Hallyday"
+      "source": "Johnny Hallyday",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-064",
@@ -618,7 +681,8 @@
       "prompt": "Je veux",
       "answer": "D’l’amour, d’la joie, de la bonne humeur",
       "title": "Je veux",
-      "source": "Zaz"
+      "source": "Zaz",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-065",
@@ -627,7 +691,8 @@
       "prompt": "Dansons la capucine",
       "answer": "Y a pas de pain chez nous",
       "title": "Dansons la capucine",
-      "source": "Comptine"
+      "source": "Comptine",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-066",
@@ -636,7 +701,8 @@
       "prompt": "Tu étais formidable",
       "answer": "J’étais fort minable",
       "title": "Formidable",
-      "source": "Stromae"
+      "source": "Stromae",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-067",
@@ -645,7 +711,8 @@
       "prompt": "On va s’aimer",
       "answer": "Sur une étoile ou sur un oreiller",
       "title": "On va s’aimer",
-      "source": "Gilbert Montagné"
+      "source": "Gilbert Montagné",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-068",
@@ -654,7 +721,8 @@
       "prompt": "Sous les sunlights des tropiques",
       "answer": "L’amour se raconte en musique",
       "title": "Les Sunlights des tropiques",
-      "source": "Gilbert Montagné"
+      "source": "Gilbert Montagné",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-069",
@@ -663,7 +731,8 @@
       "prompt": "Cendrillon, pour ses vingt ans",
       "answer": "Est la plus jolie des enfants",
       "title": "Cendrillon",
-      "source": "Téléphone"
+      "source": "Téléphone",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-070",
@@ -672,7 +741,8 @@
       "prompt": "J’ai encore rêvé d’elle",
       "answer": "C’est bête, elle n’a rien fait pour ça",
       "title": "J’ai encore rêvé d’elle",
-      "source": "Il était une fois"
+      "source": "Il était une fois",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-071",
@@ -681,7 +751,8 @@
       "prompt": "Les mots bleus",
       "answer": "Les mots qu’on dit avec les yeux",
       "title": "Les Mots bleus",
-      "source": "Christophe"
+      "source": "Christophe",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-072",
@@ -690,7 +761,8 @@
       "prompt": "Emmenez-moi au bout de la Terre",
       "answer": "Emmenez-moi au pays des merveilles",
       "title": "Emmenez-moi",
-      "source": "Charles Aznavour"
+      "source": "Charles Aznavour",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-073",
@@ -699,7 +771,8 @@
       "prompt": "Partenaire particulier",
       "answer": "Cherche partenaire particulière",
       "title": "Partenaire particulier",
-      "source": "Partenaire Particulier"
+      "source": "Partenaire Particulier",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-074",
@@ -708,7 +781,8 @@
       "prompt": "Sous l’océan, sous l’océan",
       "answer": "Doudou, c’est bien mieux",
       "title": "Sous l’océan",
-      "source": "La Petite Sirène"
+      "source": "La Petite Sirène",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-075",
@@ -717,7 +791,8 @@
       "prompt": "Prince Ali, oui, c’est bien lui",
       "answer": "Ali Ababwa",
       "title": "Prince Ali",
-      "source": "Aladdin"
+      "source": "Aladdin",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-076",
@@ -726,7 +801,8 @@
       "prompt": "Mon amour, dis-moi à quoi tu penses",
       "answer": "Si tout ça a un sens",
       "title": "Mon amour",
-      "source": "Slimane"
+      "source": "Slimane",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-077",
@@ -735,7 +811,8 @@
       "prompt": "Il fait toujours beau au-dessus des nuages",
       "answer": "Mais moi, si j’étais un oiseau",
       "title": "La Symphonie des éclairs",
-      "source": "Zaho de Sagazan"
+      "source": "Zaho de Sagazan",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-078",
@@ -744,7 +821,8 @@
       "prompt": "Bande organisée",
       "answer": "Personne peut nous canaliser",
       "title": "Bande organisée",
-      "source": "Jul et collectif 13 Organisé"
+      "source": "Jul et collectif 13 Organisé",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-079",
@@ -753,7 +831,8 @@
       "prompt": "Il faudrait tout oublier",
       "answer": "Pour y croire",
       "title": "Tout oublier",
-      "source": "Angèle & Roméo Elvis"
+      "source": "Angèle & Roméo Elvis",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-080",
@@ -762,7 +841,8 @@
       "prompt": "Balance ton quoi",
       "answer": "Même si tu parles mal des filles",
       "title": "Balance ton quoi",
-      "source": "Angèle"
+      "source": "Angèle",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-081",
@@ -771,7 +851,8 @@
       "prompt": "Y a pas moyen, Djadja",
       "answer": "J’suis pas ta catin, Djadja",
       "title": "Djadja",
-      "source": "Aya Nakamura"
+      "source": "Aya Nakamura",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-082",
@@ -780,7 +861,8 @@
       "prompt": "On ne change pas",
       "answer": "On met juste les costumes d’autres sur soi",
       "title": "On ne change pas",
-      "source": "Céline Dion"
+      "source": "Céline Dion",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-083",
@@ -789,7 +871,8 @@
       "prompt": "Et si tu crois que j’ai eu peur",
       "answer": "C’est faux",
       "title": "Sous le vent",
-      "source": "Garou & Céline Dion"
+      "source": "Garou & Céline Dion",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-084",
@@ -798,7 +881,8 @@
       "prompt": "Je danse le Mia",
       "answer": "Pas de pacotille",
       "title": "Je danse le Mia",
-      "source": "IAM"
+      "source": "IAM",
+      "difficulty": "medium"
     },
     {
       "id": "lyrics-085",
@@ -807,7 +891,8 @@
       "prompt": "Et tu chantes, chantes, chantes",
       "answer": "Ce refrain qui te plaît",
       "title": "Nuit de folie",
-      "source": "Début de Soirée"
+      "source": "Début de Soirée",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-086",
@@ -816,7 +901,8 @@
       "prompt": "Tu crois que la Terre",
       "answer": "T’appartient tout entière",
       "title": "L’Air du vent",
-      "source": "Pocahontas"
+      "source": "Pocahontas",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-087",
@@ -825,7 +911,8 @@
       "prompt": "Je donnerais tout ce que j’ai",
       "answer": "Pour partir d’ici",
       "title": "Partir là-bas",
-      "source": "La Petite Sirène"
+      "source": "La Petite Sirène",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-088",
@@ -834,7 +921,8 @@
       "prompt": "Attaquons l’exercice",
       "answer": "Pour défaire les Huns",
       "title": "Comme un homme",
-      "source": "Mulan"
+      "source": "Mulan",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-089",
@@ -843,7 +931,8 @@
       "prompt": "Mamma Mia",
       "answer": "Here I go again",
       "title": "Mamma Mia",
-      "source": "ABBA"
+      "source": "ABBA",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-090",
@@ -852,7 +941,8 @@
       "prompt": "You are the Dancing Queen",
       "answer": "Young and sweet, only seventeen",
       "title": "Dancing Queen",
-      "source": "ABBA"
+      "source": "ABBA",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-091",
@@ -861,7 +951,8 @@
       "prompt": "Is this the real life?",
       "answer": "Is this just fantasy?",
       "title": "Bohemian Rhapsody",
-      "source": "Queen"
+      "source": "Queen",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-092",
@@ -870,7 +961,8 @@
       "prompt": "We are the champions",
       "answer": "My friends",
       "title": "We Are the Champions",
-      "source": "Queen"
+      "source": "Queen",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-093",
@@ -879,7 +971,8 @@
       "prompt": "Billie Jean is not my lover",
       "answer": "She’s just a girl who claims that I am the one",
       "title": "Billie Jean",
-      "source": "Michael Jackson"
+      "source": "Michael Jackson",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-094",
@@ -888,7 +981,8 @@
       "prompt": "’Cause this is thriller, thriller night",
       "answer": "And no one’s gonna save you",
       "title": "Thriller",
-      "source": "Michael Jackson"
+      "source": "Michael Jackson",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-095",
@@ -897,7 +991,8 @@
       "prompt": "Beat it, beat it",
       "answer": "No one wants to be defeated",
       "title": "Beat It",
-      "source": "Michael Jackson"
+      "source": "Michael Jackson",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-096",
@@ -906,7 +1001,8 @@
       "prompt": "You’ve been hit by",
       "answer": "You’ve been struck by a smooth criminal",
       "title": "Smooth Criminal",
-      "source": "Michael Jackson"
+      "source": "Michael Jackson",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-097",
@@ -915,7 +1011,8 @@
       "prompt": "Oops, I did it again",
       "answer": "I played with your heart",
       "title": "Oops!... I Did It Again",
-      "source": "Britney Spears"
+      "source": "Britney Spears",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-098",
@@ -924,7 +1021,8 @@
       "prompt": "My loneliness is killing me",
       "answer": "I must confess I still believe",
       "title": "...Baby One More Time",
-      "source": "Britney Spears"
+      "source": "Britney Spears",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-099",
@@ -933,7 +1031,8 @@
       "prompt": "With a taste of your lips",
       "answer": "I’m on a ride",
       "title": "Toxic",
-      "source": "Britney Spears"
+      "source": "Britney Spears",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-100",
@@ -942,7 +1041,8 @@
       "prompt": "Umbrella, ella, ella",
       "answer": "Eh, eh, eh",
       "title": "Umbrella",
-      "source": "Rihanna"
+      "source": "Rihanna",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-101",
@@ -951,7 +1051,8 @@
       "prompt": "Rah-rah-ah-ah-ah",
       "answer": "Roma-roma-ma",
       "title": "Bad Romance",
-      "source": "Lady Gaga"
+      "source": "Lady Gaga",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-102",
@@ -960,7 +1061,8 @@
       "prompt": "Can’t read my, can’t read my",
       "answer": "No, he can’t read my poker face",
       "title": "Poker Face",
-      "source": "Lady Gaga"
+      "source": "Lady Gaga",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-103",
@@ -969,7 +1071,8 @@
       "prompt": "I kissed a girl",
       "answer": "And I liked it",
       "title": "I Kissed a Girl",
-      "source": "Katy Perry"
+      "source": "Katy Perry",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-104",
@@ -978,7 +1081,8 @@
       "prompt": "I got the eye of the tiger",
       "answer": "A fighter, dancing through the fire",
       "title": "Roar",
-      "source": "Katy Perry"
+      "source": "Katy Perry",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-105",
@@ -987,7 +1091,8 @@
       "prompt": "Hello from the other side",
       "answer": "I must’ve called a thousand times",
       "title": "Hello",
-      "source": "Adele"
+      "source": "Adele",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-106",
@@ -996,7 +1101,8 @@
       "prompt": "Never mind, I’ll find",
       "answer": "Someone like you",
       "title": "Someone Like You",
-      "source": "Adele"
+      "source": "Adele",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-107",
@@ -1005,7 +1111,8 @@
       "prompt": "The club isn’t the best place",
       "answer": "To find a lover",
       "title": "Shape of You",
-      "source": "Ed Sheeran"
+      "source": "Ed Sheeran",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-108",
@@ -1014,7 +1121,8 @@
       "prompt": "I found a love for me",
       "answer": "Darling, just dive right in",
       "title": "Perfect",
-      "source": "Ed Sheeran"
+      "source": "Ed Sheeran",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-109",
@@ -1023,7 +1131,8 @@
       "prompt": "Hey, I just met you",
       "answer": "And this is crazy",
       "title": "Call Me Maybe",
-      "source": "Carly Rae Jepsen"
+      "source": "Carly Rae Jepsen",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-110",
@@ -1032,7 +1141,8 @@
       "prompt": "I can buy myself flowers",
       "answer": "Write my name in the sand",
       "title": "Flowers",
-      "source": "Miley Cyrus"
+      "source": "Miley Cyrus",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-111",
@@ -1041,7 +1151,8 @@
       "prompt": "You know it’s not the same",
       "answer": "As it was",
       "title": "As It Was",
-      "source": "Harry Styles"
+      "source": "Harry Styles",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-112",
@@ -1050,7 +1161,8 @@
       "prompt": "If you don’t wanna see me",
       "answer": "Dancing with somebody",
       "title": "Don’t Start Now",
-      "source": "Dua Lipa"
+      "source": "Dua Lipa",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-113",
@@ -1059,7 +1171,8 @@
       "prompt": "I used to rule the world",
       "answer": "Seas would rise when I gave the word",
       "title": "Viva la Vida",
-      "source": "Coldplay"
+      "source": "Coldplay",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-114",
@@ -1068,7 +1181,8 @@
       "prompt": "Look at the stars",
       "answer": "Look how they shine for you",
       "title": "Yellow",
-      "source": "Coldplay"
+      "source": "Coldplay",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-115",
@@ -1077,7 +1191,8 @@
       "prompt": "With the lights out",
       "answer": "It’s less dangerous",
       "title": "Smells Like Teen Spirit",
-      "source": "Nirvana"
+      "source": "Nirvana",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-116",
@@ -1086,7 +1201,8 @@
       "prompt": "Wake me up inside",
       "answer": "I can’t wake up",
       "title": "Bring Me to Life",
-      "source": "Evanescence"
+      "source": "Evanescence",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-117",
@@ -1095,7 +1211,8 @@
       "prompt": "I tried so hard",
       "answer": "And got so far",
       "title": "In the End",
-      "source": "Linkin Park"
+      "source": "Linkin Park",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-118",
@@ -1104,7 +1221,8 @@
       "prompt": "I’m a Barbie girl",
       "answer": "In the Barbie world",
       "title": "Barbie Girl",
-      "source": "Aqua"
+      "source": "Aqua",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-119",
@@ -1113,7 +1231,8 @@
       "prompt": "Tell me why",
       "answer": "Ain’t nothing but a heartache",
       "title": "I Want It That Way",
-      "source": "Backstreet Boys"
+      "source": "Backstreet Boys",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-120",
@@ -1122,7 +1241,8 @@
       "prompt": "Everybody, yeah",
       "answer": "Rock your body, yeah",
       "title": "Everybody (Backstreet’s Back)",
-      "source": "Backstreet Boys"
+      "source": "Backstreet Boys",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-121",
@@ -1131,7 +1251,8 @@
       "prompt": "Because I’m happy",
       "answer": "Clap along if you feel like a room without a roof",
       "title": "Happy",
-      "source": "Pharrell Williams"
+      "source": "Pharrell Williams",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-122",
@@ -1140,7 +1261,8 @@
       "prompt": "I’m off the deep end",
       "answer": "Watch as I dive in",
       "title": "Shallow",
-      "source": "Lady Gaga & Bradley Cooper"
+      "source": "Lady Gaga & Bradley Cooper",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-123",
@@ -1149,7 +1271,8 @@
       "prompt": "Never gonna give you up",
       "answer": "Never gonna let you down",
       "title": "Never Gonna Give You Up",
-      "source": "Rick Astley"
+      "source": "Rick Astley",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-124",
@@ -1158,7 +1281,8 @@
       "answer": "Disait au revoir à ses petits enfants",
       "title": "Ah ! les crocodiles",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-125",
@@ -1167,7 +1291,8 @@
       "answer": "Le furet du bois, mesdames",
       "title": "Il court, il court, le furet",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-126",
@@ -1176,7 +1301,8 @@
       "answer": "M'en allant promener",
       "title": "À la claire fontaine",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-127",
@@ -1185,7 +1311,8 @@
       "answer": "Mironton, mironton, mirontaine",
       "title": "Malbrough s'en va-t-en guerre",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-128",
@@ -1194,7 +1321,8 @@
       "answer": "Qui n'ont ni poutres ni chevrons",
       "title": "Cadet Rousselle",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-129",
@@ -1203,7 +1331,8 @@
       "answer": "Qu'il fait bon, fait bon, fait bon",
       "title": "Auprès de ma blonde",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-130",
@@ -1212,7 +1341,8 @@
       "answer": "Les lauriers sont coupés",
       "title": "Nous n'irons plus au bois",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-131",
@@ -1221,7 +1351,8 @@
       "answer": "Pour y cueillir du romarin",
       "title": "Gentil coquelicot",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-132",
@@ -1230,7 +1361,8 @@
       "answer": "Qui crie par la fenêtre à qui le lui rendra",
       "title": "La Mère Michel",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-133",
@@ -1239,7 +1371,8 @@
       "answer": "Presse tes blancs moutons",
       "title": "Il pleut, il pleut, bergère",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-134",
@@ -1248,7 +1381,8 @@
       "answer": "Que j'aime ta verdure",
       "title": "Mon beau sapin",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-135",
@@ -1257,7 +1391,8 @@
       "answer": "La maison qui brûle",
       "title": "Au feu, les pompiers",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-136",
@@ -1266,7 +1401,8 @@
       "answer": "Appelé Guilleri",
       "title": "Compère Guilleri",
       "source": "Chanson traditionnelle",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-137",
@@ -1275,7 +1411,8 @@
       "answer": "Tapis, tapis rouge",
       "title": "Pomme de reinette",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-138",
@@ -1284,7 +1421,8 @@
       "answer": "Quatre, cinq, six, cueillir des cerises",
       "title": "Un, deux, trois, nous irons au bois",
       "source": "Comptine",
-      "boxId": "comptines"
+      "boxId": "comptines",
+      "difficulty": "easy"
     },
     {
       "id": "lyrics-139",
@@ -1293,7 +1431,8 @@
       "answer": "How I wonder what you are",
       "title": "Twinkle, Twinkle, Little Star",
       "source": "Traditional",
-      "boxId": "anglais"
+      "boxId": "anglais",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-140",
@@ -1302,7 +1441,8 @@
       "answer": "Gently down the stream",
       "title": "Row, Row, Row Your Boat",
       "source": "Traditional",
-      "boxId": "anglais"
+      "boxId": "anglais",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-141",
@@ -1311,7 +1451,8 @@
       "answer": "E-I-E-I-O",
       "title": "Old MacDonald Had a Farm",
       "source": "Traditional",
-      "boxId": "anglais"
+      "boxId": "anglais",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-142",
@@ -1320,7 +1461,8 @@
       "answer": "Falling down, falling down",
       "title": "London Bridge Is Falling Down",
       "source": "Traditional",
-      "boxId": "anglais"
+      "boxId": "anglais",
+      "difficulty": "hard"
     },
     {
       "id": "lyrics-143",
@@ -1329,7 +1471,8 @@
       "answer": "Its fleece was white as snow",
       "title": "Mary Had a Little Lamb",
       "source": "Traditional",
-      "boxId": "anglais"
+      "boxId": "anglais",
+      "difficulty": "hard"
     }
   ]
 }
