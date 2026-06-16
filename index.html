@@ -9,7 +9,12 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./css-base.css">
+<link rel="stylesheet" href="./css-manager.css">
+<link rel="stylesheet" href="./css-game.css">
+<link rel="stylesheet" href="./css-dialogs.css">
+<link rel="stylesheet" href="./css-drawing.css">
+<link rel="stylesheet" href="./css-home.css">
 </head>
 <body>
   <main id="app">
@@ -17,14 +22,7 @@
       <div class="home-card">
         <header class="home-topbar">
           <div class="home-brand">
-            <p class="eyebrow">Version test 0.4.2 — Quatre modes</p>
             <h1 id="appTitle">Mais devine, bordel !</h1>
-            <p class="intro">Choisis les modes, règle les catégories et lance la partie.</p>
-            <div class="quick-rules" aria-label="Rappel des commandes">
-              <span><b>→</b> Validé</span>
-              <span><b>←</b> Passé</span>
-              <span><b>↶</b> Retour</span>
-            </div>
           </div>
 
           <fieldset id="globalTimerSettings" class="timer-settings home-timer-settings">
@@ -525,6 +523,17 @@
     </form>
   </dialog>
 
-  <script src="./app.js" defer></script>
+  <script defer src="./js-config.js"></script>
+  <script defer src="./js-dom.js"></script>
+  <script defer src="./js-state.js"></script>
+  <script defer src="./js-utils.js"></script>
+  <script defer src="./js-storage.js"></script>
+  <script defer src="./js-home.js"></script>
+  <script defer src="./js-manager.js"></script>
+  <script defer src="./js-library-sync.js"></script>
+  <script defer src="./js-drawing.js"></script>
+  <script defer src="./js-game.js"></script>
+  <script defer src="./js-diagnostics.js"></script>
+  <script defer src="./js-main.js"></script>
 </body>
 </html>

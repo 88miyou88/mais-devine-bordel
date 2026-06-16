@@ -1,16 +1,32 @@
-const CACHE_NAME = "mdb-v0-4-2";
+const CACHE_NAME = "mdb-v0-5-0";
 const APP_FILES = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
   "./manifest.webmanifest",
   "./data.json",
   "./mimes.json",
   "./words.json",
   "./drawings.json",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./css-base.css",
+  "./css-manager.css",
+  "./css-game.css",
+  "./css-dialogs.css",
+  "./css-drawing.css",
+  "./css-home.css",
+  "./js-config.js",
+  "./js-dom.js",
+  "./js-state.js",
+  "./js-utils.js",
+  "./js-storage.js",
+  "./js-home.js",
+  "./js-manager.js",
+  "./js-library-sync.js",
+  "./js-drawing.js",
+  "./js-game.js",
+  "./js-diagnostics.js",
+  "./js-main.js"
 ];
 
 self.addEventListener("install", event => {
@@ -24,9 +40,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      ))
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
