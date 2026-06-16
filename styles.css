@@ -734,32 +734,51 @@ h2{font-size:clamp(1.8rem,5vw,3rem)}
 
 /* Écrans Dessin autonomes */
 .draw-screen{align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 20% 20%,rgba(32,201,190,.18),transparent 34%),#0b0d11}
-.draw-reveal-card{width:min(760px,100%);max-height:100%;overflow:auto;border:2px solid rgba(32,201,190,.55);border-radius:26px;padding:clamp(20px,4vw,38px);background:linear-gradient(145deg,rgba(32,201,190,.28),rgba(17,25,31,.97) 56%);box-shadow:0 28px 80px rgba(0,0,0,.45);text-align:center}
+.draw-reveal-card{width:min(920px,100%);max-height:100%;overflow:auto;border:2px solid rgba(32,201,190,.55);border-radius:26px;padding:clamp(18px,3.2vw,34px);background:linear-gradient(145deg,rgba(32,201,190,.28),rgba(17,25,31,.97) 56%);box-shadow:0 28px 80px rgba(0,0,0,.45);text-align:center}
 .draw-mode-kicker{margin:0 0 7px;color:#5ff4e8;font-weight:1000;letter-spacing:.14em;font-size:.8rem}
 .draw-attempt-label{margin:0;color:var(--muted);font-weight:850}
-.draw-reveal-card h2{margin:14px auto 8px;max-width:680px;font-size:clamp(2rem,6vw,4.6rem);line-height:1.03;text-wrap:balance}
+.draw-reveal-card h2{margin:12px auto 7px;max-width:760px;font-size:clamp(2rem,6vw,4.6rem);line-height:1.03;text-wrap:balance}
 .draw-reveal-meta{margin:0;color:#b9fff8;font-weight:850}
-.draw-rule-reminder{margin:16px auto;color:var(--muted);font-size:.9rem}
-.draw-reveal-actions,.draw-support-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.draw-rule-reminder{margin:13px auto 0;color:var(--muted);font-size:.9rem}
+.draw-reveal-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+.draw-choice-note{margin:10px 0 0;color:var(--muted);font-size:.78rem}
 .draw-primary{background:#5ff4e8;color:#06201e}
-.draw-play-shell{width:100%;height:100%;display:flex;flex-direction:column;gap:8px}
-.draw-play-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:7px 12px;border:1px solid rgba(32,201,190,.45);border-radius:14px;background:rgba(15,29,34,.94)}
-.draw-play-header>div:first-child{display:flex;flex-direction:column}
-.draw-play-header strong{color:#5ff4e8}.draw-play-header span{color:var(--muted);font-size:.8rem}
-.draw-timer-display{font-size:clamp(1.8rem,5vw,3rem);font-weight:1000;color:#fff;min-width:72px;text-align:center}
-.draw-canvas-area,.draw-paper-area{flex:1 1 auto;min-height:0;position:relative;border-radius:18px;overflow:hidden;border:2px solid rgba(32,201,190,.5);background:#fff}
+
+.draw-play-shell{width:100%;height:100%;display:flex;flex-direction:column;gap:7px}
+.draw-workspace{flex:1 1 auto;min-height:0;position:relative;display:flex}
+.draw-canvas-hud{position:absolute;z-index:6;top:8px;left:62px;right:62px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;pointer-events:none}
+.draw-hud-progress,.draw-timer-display{background:rgba(10,14,18,.86);border:1px solid rgba(32,201,190,.55);box-shadow:0 8px 22px rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.draw-hud-progress{display:flex;align-items:center;gap:8px;min-height:38px;padding:7px 11px;border-radius:12px}
+.draw-hud-progress strong{color:#5ff4e8}.draw-hud-progress span{color:#fff;font-size:.78rem;font-weight:800}
+.draw-timer-display{min-width:62px;padding:4px 10px;border-radius:12px;font-size:clamp(1.75rem,5vw,2.8rem);line-height:1;font-weight:1000;color:#fff;text-align:center}
+
+.draw-canvas-area,.draw-paper-area{flex:1 1 auto;min-width:0;min-height:0;position:relative;border-radius:18px;overflow:hidden;border:2px solid rgba(32,201,190,.58);background:#fff}
 #drawingCanvas{display:block;width:100%;height:100%;background:#fff;touch-action:none;cursor:crosshair}
-.draw-toolbar{position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;gap:7px;padding:7px;border-radius:13px;background:rgba(15,18,23,.9);backdrop-filter:blur(8px)}
-.draw-color-choices{display:flex;gap:5px;flex-wrap:wrap}
-.draw-color{width:28px;height:28px;border-radius:50%;background:var(--swatch);border:3px solid rgba(255,255,255,.42)}
-.draw-color.selected{outline:3px solid #fff;outline-offset:1px}
-.draw-size-control{display:flex;align-items:center;gap:6px;color:#fff;font-size:.75rem;font-weight:800;white-space:nowrap}.draw-size-control input{width:90px}
-.draw-tool-button{min-height:34px;padding:6px 9px;border-radius:9px;background:#2b3340;color:#fff;font-weight:850;border:1px solid rgba(255,255,255,.18)}
-.draw-tool-button.active{background:#5ff4e8;color:#06201e}.danger-lite{color:#ffabb2}
-.draw-paper-area{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(145deg,rgba(32,201,190,.26),rgba(20,27,34,.98));color:#fff}
+.draw-side-toolbar{position:absolute;z-index:5;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;padding:7px;border-radius:14px;background:rgba(15,18,23,.91);border:1px solid rgba(255,255,255,.13);box-shadow:0 8px 26px rgba(0,0,0,.26);backdrop-filter:blur(8px)}
+.draw-side-left{left:8px}.draw-side-right{right:8px}
+.draw-color-choices{display:flex;flex-direction:column;gap:6px}
+.draw-color{width:30px;height:30px;flex:0 0 30px;border-radius:50%;background:var(--swatch);border:3px solid rgba(255,255,255,.44)}
+.draw-color.selected{outline:3px solid #fff;outline-offset:1px;transform:scale(1.06)}
+.draw-size-control{display:flex;flex-direction:column;align-items:center;gap:5px;color:#fff;font-size:.72rem;font-weight:900}
+.draw-size-icon{font-size:.72rem;line-height:1;color:#fff}
+.draw-size-control input{width:28px;height:106px;margin:0;writing-mode:vertical-lr;direction:rtl;accent-color:#5ff4e8}
+.draw-tool-button{width:42px;height:42px;min-height:0;padding:8px;border-radius:11px;background:#2b3340;color:#fff;font-weight:900;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center}
+.draw-icon-button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.draw-undo-icon{font-size:1.75rem;line-height:1;transform:translateY(-1px)}
+.draw-tool-button.active{background:#5ff4e8;color:#06201e;box-shadow:0 0 0 2px rgba(95,244,232,.28)}
+.draw-trash-button{background:rgba(255,91,103,.18);color:#ff6b76;border-color:rgba(255,91,103,.48)}
+.draw-trash-button:active{background:#ff5b67;color:#fff}
+.draw-paper-area{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px 24px;background:linear-gradient(145deg,rgba(32,201,190,.26),rgba(20,27,34,.98));color:#fff}
 .paper-icon{font-size:clamp(5rem,18vw,10rem);line-height:.7;color:#5ff4e8;transform:rotate(-8deg)}
 .draw-paper-area h2{font-size:clamp(2rem,6vw,4rem);margin:14px 0 6px}.draw-paper-area p{max-width:620px;margin:0;color:var(--muted)}
 .draw-play-actions{flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
-@media(max-height:450px){.draw-reveal-card{padding:14px 20px}.draw-reveal-card h2{font-size:clamp(1.65rem,5vw,3.4rem);margin:8px auto 5px}.draw-rule-reminder{margin:8px auto}.draw-reveal-actions,.draw-support-actions{margin-top:10px}.draw-toolbar{gap:5px;padding:5px}.draw-color{width:24px;height:24px}.draw-tool-button{font-size:.72rem}.draw-play-header{min-height:44px}.draw-play-actions .primary-button,.draw-play-actions .danger-button{min-height:42px;padding:7px}}
-@media(max-width:620px){.draw-config-grid,.draw-reveal-actions,.draw-support-actions{grid-template-columns:1fr}.draw-toolbar{overflow-x:auto}.draw-size-control input{width:70px}}
+@media(max-height:450px){
+  .draw-reveal-card{padding:12px 18px}.draw-reveal-card h2{font-size:clamp(1.65rem,5vw,3.3rem);margin:7px auto 4px}.draw-rule-reminder{margin-top:7px}.draw-reveal-actions{margin-top:9px}.draw-choice-note{margin-top:6px}
+  .draw-play-actions .primary-button,.draw-play-actions .danger-button{min-height:42px;padding:7px}
+  .draw-side-toolbar{gap:4px;padding:5px}.draw-color-choices{gap:4px}.draw-color{width:24px;height:24px;flex-basis:24px;border-width:2px}
+  .draw-tool-button{width:34px;height:34px;padding:6px}.draw-icon-button svg{width:20px;height:20px}.draw-undo-icon{font-size:1.45rem}
+  .draw-size-control input{height:76px}.draw-canvas-hud{top:5px;left:50px;right:50px}.draw-hud-progress{min-height:32px;padding:5px 8px}.draw-timer-display{min-width:52px;font-size:1.75rem}
+}
+@media(max-width:760px){.draw-config-grid{grid-template-columns:1fr}.draw-reveal-card{width:min(700px,100%)}}
+@media(max-width:520px){.draw-reveal-actions{grid-template-columns:1fr}}

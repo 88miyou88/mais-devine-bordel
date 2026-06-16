@@ -1,4 +1,4 @@
-const CACHE_NAME = "mdb-v0-4-0";
+const CACHE_NAME = "mdb-v0-4-1";
 const APP_FILES = [
   "./",
   "./index.html",

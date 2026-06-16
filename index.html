@@ -15,7 +15,7 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Version test 0.4.0 — Quatre modes</p>
+        <p class="eyebrow">Version test 0.4.1 — Quatre modes</p>
         <h1 id="appTitle">Mais devine, bordel !</h1>
         <p class="intro">Choisis tes modes comme des applis. Touche un carré pour voir les règles, les niveaux et les catégories.</p>
 
@@ -216,37 +216,31 @@
           <h2 id="drawRevealPrompt">Consigne</h2>
           <p id="drawRevealMeta" class="draw-reveal-meta">Catégorie · Difficulté</p>
           <p class="draw-rule-reminder">Pas de lettres, de mots ni de chiffres qui donnent la réponse.</p>
-          <div class="draw-reveal-actions">
-            <button id="drawReadyButton" class="primary-button draw-primary" type="button">Picasso est prêt</button>
-            <button id="drawSkipRevealButton" class="secondary-button" type="button">Passer ce dessin</button>
-          </div>
-        </div>
-        <div id="drawSupportPanel" class="hidden">
-          <p class="draw-mode-kicker">LE MOT EST DANS TA TÊTE ?</p>
-          <h2>Choisis ton terrain de massacre</h2>
-          <p class="draw-reveal-meta">Le chronomètre démarre seulement après ton choix.</p>
-          <div class="draw-support-actions">
+          <div class="draw-reveal-actions draw-reveal-actions-direct">
             <button id="drawOnPhoneButton" class="primary-button draw-primary" type="button">Je gribouille ici</button>
             <button id="drawOnPaperButton" class="secondary-button" type="button">Je massacre une feuille</button>
+            <button id="drawSkipRevealButton" class="danger-button" type="button">Passer ce dessin</button>
           </div>
+          <p class="draw-choice-note">Le chrono démarre seulement après ton choix.</p>
         </div>
       </div>
     </section>
 
     <section id="drawPlayScreen" class="screen draw-screen">
       <div class="draw-play-shell">
-        <header class="draw-play-header">
-          <div>
-            <strong id="drawPlayProgress">Dessin 1/3</strong>
-            <span id="drawLiveScore">0 point</span>
+        <div class="draw-workspace">
+          <div class="draw-canvas-hud" aria-live="polite">
+            <div class="draw-hud-progress">
+              <strong id="drawPlayProgress">Dessin 1/3</strong>
+              <span id="drawLiveScore">0 point</span>
+            </div>
+            <div id="drawTimerDisplay" class="draw-timer-display">30</div>
           </div>
-          <div id="drawTimerDisplay" class="draw-timer-display">30</div>
-        </header>
 
-        <div id="drawCanvasArea" class="draw-canvas-area">
-          <canvas id="drawingCanvas" aria-label="Zone de dessin"></canvas>
-          <div class="draw-toolbar">
-            <div id="drawColorChoices" class="draw-color-choices" aria-label="Couleurs">
+          <div id="drawCanvasArea" class="draw-canvas-area">
+            <canvas id="drawingCanvas" aria-label="Zone de dessin"></canvas>
+
+            <div id="drawColorChoices" class="draw-side-toolbar draw-side-left draw-color-choices" aria-label="Couleurs">
               <button class="draw-color selected" type="button" data-color="#111318" style="--swatch:#111318" aria-label="Noir"></button>
               <button class="draw-color" type="button" data-color="#e53935" style="--swatch:#e53935" aria-label="Rouge"></button>
               <button class="draw-color" type="button" data-color="#1976d2" style="--swatch:#1976d2" aria-label="Bleu"></button>
@@ -254,17 +248,29 @@
               <button class="draw-color" type="button" data-color="#f9a825" style="--swatch:#f9a825" aria-label="Jaune"></button>
               <button class="draw-color" type="button" data-color="#8e24aa" style="--swatch:#8e24aa" aria-label="Violet"></button>
             </div>
-            <label class="draw-size-control">Trait <input id="drawBrushSize" type="range" min="2" max="24" value="7"></label>
-            <button id="drawEraserButton" class="draw-tool-button" type="button">Gomme</button>
-            <button id="drawUndoButton" class="draw-tool-button" type="button">Annuler</button>
-            <button id="drawClearButton" class="draw-tool-button danger-lite" type="button">Effacer</button>
-          </div>
-        </div>
 
-        <div id="drawPaperArea" class="draw-paper-area hidden">
-          <div class="paper-icon" aria-hidden="true">▱</div>
-          <h2>Massacre la feuille !</h2>
-          <p>Le mot est caché. Dessine jusqu’à ce qu’il soit trouvé ou que le chrono explose.</p>
+            <div class="draw-side-toolbar draw-side-right" aria-label="Outils de dessin">
+              <label class="draw-size-control" aria-label="Épaisseur du trait">
+                <span class="draw-size-icon" aria-hidden="true">●</span>
+                <input id="drawBrushSize" type="range" min="2" max="24" value="7" aria-label="Épaisseur du trait">
+              </label>
+              <button id="drawEraserButton" class="draw-tool-button draw-icon-button" type="button" aria-label="Passer à la gomme" title="Gomme">
+                <span id="drawToolIcon" aria-hidden="true"></span>
+              </button>
+              <button id="drawUndoButton" class="draw-tool-button draw-icon-button" type="button" aria-label="Annuler le dernier trait" title="Annuler">
+                <span class="draw-undo-icon" aria-hidden="true">↶</span>
+              </button>
+              <button id="drawClearButton" class="draw-tool-button draw-icon-button draw-trash-button" type="button" aria-label="Tout effacer" title="Tout effacer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6l1 2h4v2H4V5h4l1-2Zm-2 6h10l-1 11H8L7 9Zm3 2v7m4-7v7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="drawPaperArea" class="draw-paper-area hidden">
+            <div class="paper-icon" aria-hidden="true">▱</div>
+            <h2>Massacre la feuille !</h2>
+            <p>Le mot est caché. Dessine jusqu’à ce qu’il soit trouvé ou que le chrono explose.</p>
+          </div>
         </div>
 
         <footer class="draw-play-actions">
