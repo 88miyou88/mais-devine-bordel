@@ -1,8 +1,9 @@
 (() => {
   "use strict";
 
-  const APP_VERSION = "0.4.1";
+  const APP_VERSION = "0.4.2";
   const SWIPE_ANIMATION_MS = 180;
+  const DRAW_HOLD_MS = 500;
   const UNCATEGORIZED_ID = "uncategorized";
 
   const MODE_CONFIG = {
@@ -77,7 +78,7 @@
       color: "#20c9be",
       icon: "draw",
       rules: [
-        "Le dessinateur lit la consigne, puis confirme avec « Picasso est prêt ».",
+        "Le dessinateur touche la carte pour révéler la consigne sans la montrer aux autres.",
         "Il choisit « Je gribouille ici » ou « Je massacre une feuille ».",
         "Aucune lettre, aucun mot et aucun chiffre ne doit donner directement la réponse."
       ],
@@ -283,6 +284,7 @@
 
     drawPromptPanel: document.querySelector("#drawPromptPanel"),
     drawAttemptLabel: document.querySelector("#drawAttemptLabel"),
+    drawRevealPromptButton: document.querySelector("#drawRevealPromptButton"),
     drawRevealPrompt: document.querySelector("#drawRevealPrompt"),
     drawRevealMeta: document.querySelector("#drawRevealMeta"),
     drawSkipRevealButton: document.querySelector("#drawSkipRevealButton"),
@@ -295,6 +297,7 @@
     drawPaperArea: document.querySelector("#drawPaperArea"),
     drawingCanvas: document.querySelector("#drawingCanvas"),
     drawColorChoices: document.querySelector("#drawColorChoices"),
+    drawToolsPanel: document.querySelector("#drawToolsPanel"),
     drawBrushSize: document.querySelector("#drawBrushSize"),
     drawEraserButton: document.querySelector("#drawEraserButton"),
     drawToolIcon: document.querySelector("#drawToolIcon"),
@@ -768,6 +771,7 @@
 
     const drawOnly = state.settings.selectedModeIds.length === 1 && state.settings.selectedModeIds[0] === "draw";
     el.globalTimerSettings.classList.toggle("hidden", drawOnly);
+    el.homeScreen.classList.toggle("draw-only-home", drawOnly);
     const count = getPlayableCards().length;
     el.availableCount.textContent =
       `${count} carte${count > 1 ? "s" : ""} disponible${count > 1 ? "s" : ""}`;
@@ -1946,9 +1950,29 @@
     round.currentCard = round.queue[round.attemptIndex];
     el.drawPromptPanel.classList.remove("hidden");
     el.drawAttemptLabel.textContent = `Dessin ${round.attemptIndex + 1} sur ${round.queue.length}`;
-    el.drawRevealPrompt.textContent = round.currentCard.prompt;
     el.drawRevealMeta.textContent = `${getBoxName("draw", round.currentCard.boxId)} · ${DIFFICULTY_LABELS[round.currentCard.difficulty]} · ${drawPointValue(round.currentCard.difficulty)} point${drawPointValue(round.currentCard.difficulty) > 1 ? "s" : ""}`;
+    setDrawingPromptRevealed(false);
+    resetDrawHoldButtons();
     showScreen(el.drawRevealScreen);
+  }
+
+  function setDrawingPromptRevealed(revealed) {
+    const round = state.drawRound;
+    if (!round?.currentCard) return;
+    round.promptRevealed = revealed;
+    el.drawRevealPromptButton.classList.toggle("revealed", revealed);
+    el.drawRevealPromptButton.setAttribute("aria-pressed", String(revealed));
+    el.drawRevealPrompt.textContent = revealed ? round.currentCard.prompt : "Appuie pour révéler le mot";
+    el.drawRevealMeta.classList.toggle("hidden", !revealed);
+    [el.drawOnPhoneButton, el.drawOnPaperButton, el.drawSkipRevealButton].forEach(button => {
+      button.disabled = !revealed;
+    });
+  }
+
+  function revealDrawingPrompt() {
+    if (!state.drawRound?.currentCard || state.drawRound.promptRevealed) return;
+    setDrawingPromptRevealed(true);
+    if (state.settings.vibrationEnabled && "vibrate" in navigator) navigator.vibrate(22);
   }
 
   function skipDrawingBeforeStart() {
@@ -1966,6 +1990,10 @@
     updateDrawToolButton();
     el.drawCanvasArea.classList.toggle("hidden", support !== "phone");
     el.drawPaperArea.classList.toggle("hidden", support !== "paper");
+    el.drawColorChoices.classList.toggle("hidden", support !== "phone");
+    el.drawToolsPanel.classList.toggle("hidden", support !== "phone");
+    el.drawPlayScreen.classList.toggle("draw-paper-mode", support === "paper");
+    resetDrawHoldButtons();
     el.drawPlayProgress.textContent = `Dessin ${round.attemptIndex + 1}/${round.queue.length}`;
     updateDrawLiveScore();
     showScreen(el.drawPlayScreen);
@@ -2223,6 +2251,66 @@
     round.undoActions.push({ type: "clear", strokes: snapshot });
     round.strokes = [];
     redrawDrawingCanvas();
+  }
+
+  function resetDrawHoldButtons() {
+    [el.drawFoundButton, el.drawPassButton].forEach(button => {
+      if (!button) return;
+      button.classList.remove("holding", "hold-complete");
+      button.style.removeProperty("--hold-duration");
+    });
+  }
+
+  function attachHoldAction(button, action) {
+    let timer = 0;
+    let activePointer = null;
+    let fired = false;
+
+    const cancel = () => {
+      window.clearTimeout(timer);
+      timer = 0;
+      activePointer = null;
+      if (!fired) button.classList.remove("holding");
+      fired = false;
+    };
+
+    const begin = event => {
+      if (button.disabled || !state.drawRound?.currentCard) return;
+      event.preventDefault();
+      window.clearTimeout(timer);
+      fired = false;
+      activePointer = event.pointerId ?? "keyboard";
+      if (event.pointerId !== undefined) button.setPointerCapture?.(event.pointerId);
+      button.style.setProperty("--hold-duration", `${DRAW_HOLD_MS}ms`);
+      button.classList.add("holding");
+      timer = window.setTimeout(() => {
+        fired = true;
+        button.classList.remove("holding");
+        button.classList.add("hold-complete");
+        if (state.settings.vibrationEnabled && "vibrate" in navigator) navigator.vibrate(28);
+        action();
+      }, DRAW_HOLD_MS);
+    };
+
+    const end = event => {
+      if (activePointer === null) return;
+      if (event?.pointerId !== undefined && activePointer !== event.pointerId) return;
+      if (event?.pointerId !== undefined) button.releasePointerCapture?.(event.pointerId);
+      cancel();
+    };
+
+    button.addEventListener("pointerdown", begin);
+    button.addEventListener("pointerup", end);
+    button.addEventListener("pointercancel", end);
+    button.addEventListener("lostpointercapture", end);
+    button.addEventListener("contextmenu", event => event.preventDefault());
+    button.addEventListener("click", event => event.preventDefault());
+    button.addEventListener("keydown", event => {
+      if ((event.key === " " || event.key === "Enter") && !event.repeat) begin(event);
+    });
+    button.addEventListener("keyup", event => {
+      if (event.key === " " || event.key === "Enter") end(event);
+    });
   }
 
   function shuffle(items) {
@@ -3022,11 +3110,12 @@
     el.homeButton.addEventListener("click", goHome);
     el.copyDiagnosticButton.addEventListener("click", copyDiagnostic);
 
+    el.drawRevealPromptButton.addEventListener("click", revealDrawingPrompt);
     el.drawSkipRevealButton.addEventListener("click", skipDrawingBeforeStart);
     el.drawOnPhoneButton.addEventListener("click", () => startDrawingPlay("phone"));
     el.drawOnPaperButton.addEventListener("click", () => startDrawingPlay("paper"));
-    el.drawFoundButton.addEventListener("click", () => recordDrawingResult("valid"));
-    el.drawPassButton.addEventListener("click", () => recordDrawingResult("passed"));
+    attachHoldAction(el.drawFoundButton, () => recordDrawingResult("valid"));
+    attachHoldAction(el.drawPassButton, () => recordDrawingResult("passed"));
     el.drawColorChoices.querySelectorAll(".draw-color").forEach(button => button.addEventListener("click", () => chooseDrawColor(button.dataset.color)));
     el.drawBrushSize.addEventListener("input", () => { if (state.drawRound) state.drawRound.size = Number(el.drawBrushSize.value); });
     el.drawEraserButton.addEventListener("click", toggleDrawEraser);

@@ -15,25 +15,34 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Version test 0.4.1 — Quatre modes</p>
-        <h1 id="appTitle">Mais devine, bordel !</h1>
-        <p class="intro">Choisis tes modes comme des applis. Touche un carré pour voir les règles, les niveaux et les catégories.</p>
-
-        <fieldset id="globalTimerSettings" class="timer-settings">
-          <legend>Durée de la manche</legend>
-          <div class="preset-row" role="radiogroup" aria-label="Durée">
-            <button class="duration-btn" data-seconds="30" type="button">30 s</button>
-            <button class="duration-btn selected" data-seconds="60" type="button">60 s</button>
-            <button class="duration-btn" data-seconds="90" type="button">90 s</button>
+        <header class="home-topbar">
+          <div class="home-brand">
+            <p class="eyebrow">Version test 0.4.2 — Quatre modes</p>
+            <h1 id="appTitle">Mais devine, bordel !</h1>
+            <p class="intro">Choisis les modes, règle les catégories et lance la partie.</p>
+            <div class="quick-rules" aria-label="Rappel des commandes">
+              <span><b>→</b> Validé</span>
+              <span><b>←</b> Passé</span>
+              <span><b>↶</b> Retour</span>
+            </div>
           </div>
-          <label class="custom-duration">
-            Durée personnalisée
-            <span>
-              <input id="customSeconds" type="number" min="10" max="600" step="5" inputmode="numeric" placeholder="ex. 45">
-              secondes
-            </span>
-          </label>
-        </fieldset>
+
+          <fieldset id="globalTimerSettings" class="timer-settings home-timer-settings">
+            <legend>Durée de la manche</legend>
+            <div class="preset-row" role="radiogroup" aria-label="Durée">
+              <button class="duration-btn" data-seconds="30" type="button">30 s</button>
+              <button class="duration-btn selected" data-seconds="60" type="button">60 s</button>
+              <button class="duration-btn" data-seconds="90" type="button">90 s</button>
+            </div>
+            <label class="custom-duration">
+              Personnalisée
+              <span>
+                <input id="customSeconds" type="number" min="10" max="600" step="5" inputmode="numeric" placeholder="45">
+                s
+              </span>
+            </label>
+          </fieldset>
+        </header>
 
         <fieldset class="mode-selection-panel">
           <legend>Modes de jeu</legend>
@@ -45,69 +54,60 @@
             </div>
           </div>
           <div id="modeSelectionList" class="mode-app-grid"></div>
-          <p class="mode-grid-help">Les catégories restent cachées ici pour garder un accueil compact.</p>
         </fieldset>
 
-        <div class="home-actions">
-          <button id="startButton" class="primary-button" type="button">Lancer la partie</button>
-          <button id="manageCardsButton" class="secondary-button" type="button">Gérer les cartes et les boîtes</button>
-          <button id="installButton" class="secondary-button hidden" type="button">Installer l’application</button>
-        </div>
+        <div class="home-action-bar">
+          <button id="startButton" class="primary-button home-start-button" type="button">Lancer la partie</button>
+          <button id="manageCardsButton" class="secondary-button home-compact-button" type="button">Gérer les cartes</button>
+          <button id="installButton" class="secondary-button home-compact-button hidden" type="button">Installer</button>
 
-        <details class="settings-panel">
-          <summary>Réglages</summary>
-          <div class="settings-content">
-            <label class="toggle-row">
-              <span>
-                <strong>Vibrations</strong>
-                <small>Petites impulsions = validé · vibration longue = passé</small>
-              </span>
-              <input id="vibrationToggle" type="checkbox" checked>
-            </label>
+          <details class="settings-panel">
+            <summary>⚙ Réglages</summary>
+            <div class="settings-content">
+              <label class="toggle-row">
+                <span>
+                  <strong>Vibrations</strong>
+                  <small>Petites impulsions = validé · vibration longue = passé</small>
+                </span>
+                <input id="vibrationToggle" type="checkbox" checked>
+              </label>
 
-            <div class="test-vibrations">
-              <button id="testValidVibrationButton" class="mini-button valid-test" type="button">Tester « validé »</button>
-              <button id="testPassVibrationButton" class="mini-button pass-test" type="button">Tester « passé »</button>
-            </div>
-
-            <details id="advancedSettingsPanel" class="advanced-settings">
-              <summary>Paramètres avancés</summary>
-              <div class="advanced-settings-content">
-                <p class="advanced-explanation">
-                  Chaque mode possède sa bibliothèque officielle GitHub. Les cartes personnelles et les modifications restent sur ce téléphone.
-                </p>
-
-                <div id="libraryVersionList" class="library-version-list"></div>
-
-                <p id="libraryLastChecked" class="library-last-checked">Dernière vérification : jamais</p>
-                <p id="libraryStatusMessage" class="library-status-message">Bibliothèques chargées.</p>
-
-                <div class="advanced-actions">
-                  <button id="checkLibrariesButton" class="secondary-button compact-button" type="button">Vérifier les mises à jour</button>
-                  <button id="updateLibrariesButton" class="primary-button compact-button" type="button" disabled>Mettre à jour les bibliothèques</button>
-                  <button id="exportBackupButton" class="secondary-button compact-button" type="button">Exporter une sauvegarde</button>
-                  <button id="restoreBackupButton" class="secondary-button compact-button" type="button">Restaurer une sauvegarde</button>
-                  <input id="restoreBackupInput" class="hidden" type="file" accept=".json,application/json">
-                  <button id="diagnosticButton" class="secondary-button compact-button" type="button">Diagnostic</button>
-                  <button id="resetLibrariesButton" class="danger-button compact-button" type="button">Réinitialiser les bibliothèques officielles</button>
-                </div>
-
-                <p class="advanced-warning">
-                  La réinitialisation annule les modifications locales des cartes officielles, mais conserve les cartes et boîtes personnelles.
-                </p>
+              <div class="test-vibrations">
+                <button id="testValidVibrationButton" class="mini-button valid-test" type="button">Tester « validé »</button>
+                <button id="testPassVibrationButton" class="mini-button pass-test" type="button">Tester « passé »</button>
               </div>
-            </details>
-          </div>
-        </details>
 
-        <div class="quick-rules">
-          <span><b>→</b> Validé</span>
-          <span><b>←</b> Passé</span>
-          <span><b>↶</b> Retour</span>
-        </div>
+              <details id="advancedSettingsPanel" class="advanced-settings">
+                <summary>Paramètres avancés</summary>
+                <div class="advanced-settings-content">
+                  <p class="advanced-explanation">
+                    Chaque mode possède sa bibliothèque officielle GitHub. Les cartes personnelles et les modifications restent sur ce téléphone.
+                  </p>
 
-        <div class="utility-row">
-          <button id="flipHomeButton" class="text-button" type="button">Retourner l’affichage à 180°</button>
+                  <div id="libraryVersionList" class="library-version-list"></div>
+
+                  <p id="libraryLastChecked" class="library-last-checked">Dernière vérification : jamais</p>
+                  <p id="libraryStatusMessage" class="library-status-message">Bibliothèques chargées.</p>
+
+                  <div class="advanced-actions">
+                    <button id="checkLibrariesButton" class="secondary-button compact-button" type="button">Vérifier les mises à jour</button>
+                    <button id="updateLibrariesButton" class="primary-button compact-button" type="button" disabled>Mettre à jour les bibliothèques</button>
+                    <button id="exportBackupButton" class="secondary-button compact-button" type="button">Exporter une sauvegarde</button>
+                    <button id="restoreBackupButton" class="secondary-button compact-button" type="button">Restaurer une sauvegarde</button>
+                    <input id="restoreBackupInput" class="hidden" type="file" accept=".json,application/json">
+                    <button id="diagnosticButton" class="secondary-button compact-button" type="button">Diagnostic</button>
+                    <button id="resetLibrariesButton" class="danger-button compact-button" type="button">Réinitialiser les bibliothèques officielles</button>
+                  </div>
+
+                  <p class="advanced-warning">
+                    La réinitialisation annule les modifications locales des cartes officielles, mais conserve les cartes et boîtes personnelles.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <button id="flipHomeButton" class="secondary-button home-compact-button" type="button">↻ Retourner</button>
         </div>
       </div>
     </section>
@@ -213,15 +213,20 @@
         <div id="drawPromptPanel">
           <p class="draw-mode-kicker">DESSINE-MOI ÇA !</p>
           <p id="drawAttemptLabel" class="draw-attempt-label">Dessin 1 sur 3</p>
-          <h2 id="drawRevealPrompt">Consigne</h2>
-          <p id="drawRevealMeta" class="draw-reveal-meta">Catégorie · Difficulté</p>
+
+          <button id="drawRevealPromptButton" class="draw-reveal-prompt-button" type="button" aria-pressed="false">
+            <span id="drawRevealPrompt">Appuie pour révéler le mot</span>
+            <small>Écran face au dessinateur uniquement</small>
+          </button>
+
+          <p id="drawRevealMeta" class="draw-reveal-meta hidden">Catégorie · Difficulté</p>
           <p class="draw-rule-reminder">Pas de lettres, de mots ni de chiffres qui donnent la réponse.</p>
           <div class="draw-reveal-actions draw-reveal-actions-direct">
-            <button id="drawOnPhoneButton" class="primary-button draw-primary" type="button">Je gribouille ici</button>
-            <button id="drawOnPaperButton" class="secondary-button" type="button">Je massacre une feuille</button>
-            <button id="drawSkipRevealButton" class="danger-button" type="button">Passer ce dessin</button>
+            <button id="drawOnPhoneButton" class="primary-button draw-primary" type="button" disabled>Je gribouille ici</button>
+            <button id="drawOnPaperButton" class="secondary-button" type="button" disabled>Je massacre une feuille</button>
+            <button id="drawSkipRevealButton" class="danger-button" type="button" disabled>Passer ce dessin</button>
           </div>
-          <p class="draw-choice-note">Le chrono démarre seulement après ton choix.</p>
+          <p class="draw-choice-note">Le chrono démarre seulement après le choix du support.</p>
         </div>
       </div>
     </section>
@@ -239,8 +244,22 @@
 
           <div id="drawCanvasArea" class="draw-canvas-area">
             <canvas id="drawingCanvas" aria-label="Zone de dessin"></canvas>
+          </div>
 
-            <div id="drawColorChoices" class="draw-side-toolbar draw-side-left draw-color-choices" aria-label="Couleurs">
+          <div id="drawPaperArea" class="draw-paper-area hidden">
+            <div class="paper-icon" aria-hidden="true">▱</div>
+            <h2>Massacre la feuille !</h2>
+            <p>Le mot est caché. Dessine jusqu’à ce qu’il soit trouvé ou que le chrono explose.</p>
+          </div>
+
+          <div class="draw-side-stack draw-side-stack-left">
+            <button id="drawFoundButton" class="draw-result-button draw-found-button" type="button" aria-label="Maintenir une demi-seconde pour valider">
+              <span class="draw-result-icon" aria-hidden="true">✓</span>
+              <span>Trouvé</span>
+              <small>0,5 s</small>
+            </button>
+
+            <div id="drawColorChoices" class="draw-side-toolbar draw-color-choices" aria-label="Couleurs">
               <button class="draw-color selected" type="button" data-color="#111318" style="--swatch:#111318" aria-label="Noir"></button>
               <button class="draw-color" type="button" data-color="#e53935" style="--swatch:#e53935" aria-label="Rouge"></button>
               <button class="draw-color" type="button" data-color="#1976d2" style="--swatch:#1976d2" aria-label="Bleu"></button>
@@ -248,8 +267,16 @@
               <button class="draw-color" type="button" data-color="#f9a825" style="--swatch:#f9a825" aria-label="Jaune"></button>
               <button class="draw-color" type="button" data-color="#8e24aa" style="--swatch:#8e24aa" aria-label="Violet"></button>
             </div>
+          </div>
 
-            <div class="draw-side-toolbar draw-side-right" aria-label="Outils de dessin">
+          <div class="draw-side-stack draw-side-stack-right">
+            <button id="drawPassButton" class="draw-result-button draw-pass-button" type="button" aria-label="Maintenir une demi-seconde pour passer">
+              <span class="draw-result-icon" aria-hidden="true">✕</span>
+              <span>Passer</span>
+              <small>0,5 s</small>
+            </button>
+
+            <div id="drawToolsPanel" class="draw-side-toolbar draw-tools-panel" aria-label="Outils de dessin">
               <label class="draw-size-control" aria-label="Épaisseur du trait">
                 <span class="draw-size-icon" aria-hidden="true">●</span>
                 <input id="drawBrushSize" type="range" min="2" max="24" value="7" aria-label="Épaisseur du trait">
@@ -265,18 +292,7 @@
               </button>
             </div>
           </div>
-
-          <div id="drawPaperArea" class="draw-paper-area hidden">
-            <div class="paper-icon" aria-hidden="true">▱</div>
-            <h2>Massacre la feuille !</h2>
-            <p>Le mot est caché. Dessine jusqu’à ce qu’il soit trouvé ou que le chrono explose.</p>
-          </div>
         </div>
-
-        <footer class="draw-play-actions">
-          <button id="drawFoundButton" class="primary-button" type="button">Trouvé !</button>
-          <button id="drawPassButton" class="danger-button" type="button">Passer</button>
-        </footer>
       </div>
     </section>
 
