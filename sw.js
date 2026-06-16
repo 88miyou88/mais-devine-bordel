@@ -1,4 +1,4 @@
-const CACHE_NAME = "mdb-v0-3-0";
+const CACHE_NAME = "mdb-v0-4-0";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const APP_FILES = [
   "./data.json",
   "./mimes.json",
   "./words.json",
+  "./drawings.json",
   "./icon-192.png",
   "./icon-512.png"
 ];

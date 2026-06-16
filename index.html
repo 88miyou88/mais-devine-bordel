@@ -15,11 +15,11 @@
   <main id="app">
     <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
       <div class="home-card">
-        <p class="eyebrow">Version test 0.3.0 — Trois modes</p>
+        <p class="eyebrow">Version test 0.4.0 — Quatre modes</p>
         <h1 id="appTitle">Mais devine, bordel !</h1>
         <p class="intro">Choisis tes modes comme des applis. Touche un carré pour voir les règles, les niveaux et les catégories.</p>
 
-        <fieldset class="timer-settings">
+        <fieldset id="globalTimerSettings" class="timer-settings">
           <legend>Durée de la manche</legend>
           <div class="preset-row" role="radiogroup" aria-label="Durée">
             <button class="duration-btn" data-seconds="30" type="button">30 s</button>
@@ -208,15 +208,81 @@
       </footer>
     </section>
 
+    <section id="drawRevealScreen" class="screen draw-screen">
+      <div class="draw-reveal-card">
+        <div id="drawPromptPanel">
+          <p class="draw-mode-kicker">DESSINE-MOI ÇA !</p>
+          <p id="drawAttemptLabel" class="draw-attempt-label">Dessin 1 sur 3</p>
+          <h2 id="drawRevealPrompt">Consigne</h2>
+          <p id="drawRevealMeta" class="draw-reveal-meta">Catégorie · Difficulté</p>
+          <p class="draw-rule-reminder">Pas de lettres, de mots ni de chiffres qui donnent la réponse.</p>
+          <div class="draw-reveal-actions">
+            <button id="drawReadyButton" class="primary-button draw-primary" type="button">Picasso est prêt</button>
+            <button id="drawSkipRevealButton" class="secondary-button" type="button">Passer ce dessin</button>
+          </div>
+        </div>
+        <div id="drawSupportPanel" class="hidden">
+          <p class="draw-mode-kicker">LE MOT EST DANS TA TÊTE ?</p>
+          <h2>Choisis ton terrain de massacre</h2>
+          <p class="draw-reveal-meta">Le chronomètre démarre seulement après ton choix.</p>
+          <div class="draw-support-actions">
+            <button id="drawOnPhoneButton" class="primary-button draw-primary" type="button">Je gribouille ici</button>
+            <button id="drawOnPaperButton" class="secondary-button" type="button">Je massacre une feuille</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="drawPlayScreen" class="screen draw-screen">
+      <div class="draw-play-shell">
+        <header class="draw-play-header">
+          <div>
+            <strong id="drawPlayProgress">Dessin 1/3</strong>
+            <span id="drawLiveScore">0 point</span>
+          </div>
+          <div id="drawTimerDisplay" class="draw-timer-display">30</div>
+        </header>
+
+        <div id="drawCanvasArea" class="draw-canvas-area">
+          <canvas id="drawingCanvas" aria-label="Zone de dessin"></canvas>
+          <div class="draw-toolbar">
+            <div id="drawColorChoices" class="draw-color-choices" aria-label="Couleurs">
+              <button class="draw-color selected" type="button" data-color="#111318" style="--swatch:#111318" aria-label="Noir"></button>
+              <button class="draw-color" type="button" data-color="#e53935" style="--swatch:#e53935" aria-label="Rouge"></button>
+              <button class="draw-color" type="button" data-color="#1976d2" style="--swatch:#1976d2" aria-label="Bleu"></button>
+              <button class="draw-color" type="button" data-color="#2e7d32" style="--swatch:#2e7d32" aria-label="Vert"></button>
+              <button class="draw-color" type="button" data-color="#f9a825" style="--swatch:#f9a825" aria-label="Jaune"></button>
+              <button class="draw-color" type="button" data-color="#8e24aa" style="--swatch:#8e24aa" aria-label="Violet"></button>
+            </div>
+            <label class="draw-size-control">Trait <input id="drawBrushSize" type="range" min="2" max="24" value="7"></label>
+            <button id="drawEraserButton" class="draw-tool-button" type="button">Gomme</button>
+            <button id="drawUndoButton" class="draw-tool-button" type="button">Annuler</button>
+            <button id="drawClearButton" class="draw-tool-button danger-lite" type="button">Effacer</button>
+          </div>
+        </div>
+
+        <div id="drawPaperArea" class="draw-paper-area hidden">
+          <div class="paper-icon" aria-hidden="true">▱</div>
+          <h2>Massacre la feuille !</h2>
+          <p>Le mot est caché. Dessine jusqu’à ce qu’il soit trouvé ou que le chrono explose.</p>
+        </div>
+
+        <footer class="draw-play-actions">
+          <button id="drawFoundButton" class="primary-button" type="button">Trouvé !</button>
+          <button id="drawPassButton" class="danger-button" type="button">Passer</button>
+        </footer>
+      </div>
+    </section>
+
     <section id="resultsScreen" class="screen">
       <div class="results-card">
         <p class="eyebrow">Manche terminée</p>
         <h2>Résultats</h2>
 
         <div class="result-summary">
-          <div><strong id="resultValid">0</strong><span>validées</span></div>
-          <div><strong id="resultPassed">0</strong><span>passées</span></div>
-          <div><strong id="resultTotal">0</strong><span>jouées</span></div>
+          <div><strong id="resultValid">0</strong><span id="resultValidLabel">validées</span></div>
+          <div><strong id="resultPassed">0</strong><span id="resultPassedLabel">passées</span></div>
+          <div><strong id="resultTotal">0</strong><span id="resultTotalLabel">jouées</span></div>
         </div>
 
         <div id="resultDetails" class="result-details"></div>
@@ -234,8 +300,7 @@
       <div id="modeDialogHero" class="mode-dialog-hero">
         <div id="modeDialogIcon" class="mode-dialog-icon" aria-hidden="true"></div>
         <div class="mode-dialog-heading">
-          <p class="eyebrow">Réglages du mode</p>
-          <h2 id="modeDialogTitle">Mode</h2>
+          <p class="mode-dialog-title-line"><span>Mode de jeu :</span> <strong id="modeDialogTitle">Mode</strong></p>
           <p id="modeDialogDescription"></p>
         </div>
         <button id="closeModeDialogButton" class="close-button mode-dialog-close" type="button" aria-label="Fermer">×</button>
@@ -272,6 +337,40 @@
               <small>Ils apparaîtront en rouge sous le mot à faire deviner.</small>
             </span>
             <input id="showForbiddenWordsInput" type="checkbox" checked>
+          </label>
+        </section>
+
+        <section id="drawSpecialSettings" class="mode-setting-section hidden">
+          <p class="draw-autonomous-note"><strong>Version actuelle :</strong> ce mode se joue seul. L’intégration aux manches mélangées arrivera ensuite.</p>
+          <div class="draw-config-grid">
+            <label>
+              Nombre de dessins
+              <select id="drawAttemptCountInput">
+                <option value="3">3 dessins</option>
+                <option value="5">5 dessins</option>
+                <option value="7">7 dessins</option>
+                <option value="10">10 dessins</option>
+              </select>
+            </label>
+            <label>
+              Facile
+              <span><input id="drawEasySecondsInput" type="number" min="10" max="120" step="5" value="30"> s</span>
+            </label>
+            <label>
+              Moyen
+              <span><input id="drawMediumSecondsInput" type="number" min="10" max="120" step="5" value="45"> s</span>
+            </label>
+            <label>
+              Difficile
+              <span><input id="drawHardSecondsInput" type="number" min="10" max="180" step="5" value="60"> s</span>
+            </label>
+          </div>
+          <label class="special-option-row draw-sound-option">
+            <span>
+              <strong>Son à la fin du chrono</strong>
+              <small>La vibration reste active selon le réglage général.</small>
+            </span>
+            <input id="drawSoundEnabledInput" type="checkbox" checked>
           </label>
         </section>
 
@@ -329,7 +428,7 @@
 
       <div id="mimeEditorFields" class="hidden">
         <label>
-          Consigne à mimer
+          <span id="simplePromptLabel">Consigne à mimer</span>
           <textarea id="mimePromptInput" rows="3" placeholder="Un pigeon qui vole une frite"></textarea>
         </label>
       </div>
